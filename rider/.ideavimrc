@@ -1,0 +1,14 @@
+set visualbell
+set noerrorbells 
+
+set relativenumber = true
+set nu = true
+
+set scrolloff=8
+
+set signcolumn = yes
+set isfname+=@-@
+
+set clipboard+=unnamed
+
+let mapleader=" "
