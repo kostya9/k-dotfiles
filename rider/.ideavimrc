@@ -11,4 +11,14 @@ set isfname+=@-@
 
 set clipboard+=unnamed
 
+"This unsets the "last search pattern" register by hitting return
+nnoremap <silent> <CR> :nohlsearch<CR><CR>
+xnoremap <silent> <CR> :nohlsearch<CR><CR>
+
 let mapleader=" "
+
+" Highlights on search typing
+set incsearch
+" Highlights on search
+set hls
+
