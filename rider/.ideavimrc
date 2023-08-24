@@ -20,7 +20,7 @@ xnoremap <silent> <CR> :nohlsearch<CR><CR>
 let mapleader = " "
 
 " Highlights on search typing
-    set incsearch
+set incsearch
 " Highlights on search
 set hls
 " ignore case in search patterns
@@ -58,3 +58,5 @@ vnoremap < <gv
 vnoremap > >gv
 vnoremap = =gv
 
+" // searches for current selected string
+vnoremap // y/<C-R>"<CR>N
