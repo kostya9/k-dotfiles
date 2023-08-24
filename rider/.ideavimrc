@@ -15,10 +15,20 @@ set clipboard+=unnamed
 nnoremap <silent> <CR> :nohlsearch<CR><CR>
 xnoremap <silent> <CR> :nohlsearch<CR><CR>
 
-let mapleader=" "
+let mapleader = " "
 
 " Highlights on search typing
 set incsearch
 " Highlights on search
 set hls
 
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+
+nmap <leader>rr :action RenameElement<CR>
+nmap <leader>rem :action ExtractMethod<CR>
+nmap <leader>roi :action OptimizeImports<CR>
+nmap <leader>f :action ReformatCode<CR>
+
+nmap < :action MoveElementRight<CR>
+nmap > :action MoveElementLeft<CR>
