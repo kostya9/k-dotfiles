@@ -1,3 +1,9 @@
-rm ~\.ideavimrc
+if (Test-Path ~\.ideavimrc)
+{
+	rm ~\.ideavimrc
+}
 
-rm ~\.config\nvim
+if (Test-Path ~\.config\nvim)
+{
+	rm ~\.config\nvim
+}
