@@ -100,7 +100,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
   if client.server_capabilities.inlayHintProvider then
-        vim.lsp.buf.inlay_hint(bufnr, true)
+        -- vim.lsp.buf.inlay_hint(bufnr, true)
     end
 end)
 
