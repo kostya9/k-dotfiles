@@ -7,7 +7,8 @@ lsp.ensure_installed({
 	'eslint',
 	'rust_analyzer',
 	'omnisharp'
-	, 'lemminx'
+	, 'lemminx',
+	'prismals'
 })
 
 local cmp = require('cmp')
