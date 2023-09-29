@@ -8,7 +8,8 @@ lsp.ensure_installed({
 	'rust_analyzer',
 	'omnisharp'
 	, 'lemminx',
-	'prismals'
+	'prismals',
+	'tailwindcss'
 })
 
 local cmp = require('cmp')
@@ -101,6 +102,7 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end, opts)
 
   if client.server_capabilities.inlayHintProvider then
         -- vim.lsp.buf.inlay_hint(bufnr, true)
