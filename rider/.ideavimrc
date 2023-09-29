@@ -30,12 +30,15 @@ set wrapscan
 " keep x lines of command line history
 set history=10000                 
 
+nnoremap <c-p> :action Find
+
 nnoremap gd :action GotoDeclaration<CR>
 nnoremap gi :action GotoImplementation<CR>
 nnoremap gu :action ShowUsages<CR>
 
 nnoremap <c-o> :action Back<cr>
 nnoremap <c-i> :action Forward<cr>
+nnoremap <K> :action QuickJavaDoc<cr>
 
 nmap <leader>l :action NextTab<CR>
 nmap <leader>h :action PreviousTab<CR>
