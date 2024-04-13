@@ -33,6 +33,20 @@ cmp.setup({
 
 local lspconfig = require 'lspconfig'
 
+lsp.rust_analyzer.setup {
+	settings = {
+		["rust-analyzer"] = {
+			checkOnSave = {
+				command = "clippy"
+			},
+			procMacro = {
+				enable = true
+			}
+		}
+	}
+
+}
+
 lspconfig.lua_ls.setup {
 	settings = {
 		Lua = {
