@@ -10,3 +10,10 @@ $nvimDirectory = Join-Path $currentDirectory "nvim/.config/nvim"
 New-Item -ItemType SymbolicLink -Target $nvimDirectory -Path "~/.config/nvim" | Out-Null
 
 setx XDG_CONFIG_HOME "%USERPROFILE%\.config"
+
+New-Item -ItemType Directory -Force -Path "~/.config" | Out-Null
+$whkdrcLocation = Join-Path $currentDirectory "komorebi/whkdrc"
+New-Item -ItemType SymbolicLink -Target $whkdrcLocation -Path "~/.config/whkdrc" | Out-Null
+
+$komorebiLocation = Join-Path $currentDirectory "komorebi/komorebi.json"
+New-Item -ItemType SymbolicLink -Target $komorebiLocation -Path "~/komorebi.json" | Out-Null
