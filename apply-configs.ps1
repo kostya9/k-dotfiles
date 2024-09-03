@@ -5,6 +5,9 @@ $currentDirectory = Get-Location
 $ideavimrcLocation = Join-Path $currentDirectory "rider/.ideavimrc"
 New-Item -ItemType SymbolicLink -Target $ideavimrcLocation -Path "~/.ideavimrc" | Out-Null
 
+$vimrcLocation = Join-Path $currentDirectory "vim/.vimrc"
+New-Item -ItemType SymbolicLink -Target $vimrcLocation -Path "~/.vimrc" | Out-Null
+
 New-Item -ItemType Directory -Force -Path "~/nvim/.config" | Out-Null
 $nvimDirectory = Join-Path $currentDirectory "nvim/.config/nvim"
 New-Item -ItemType SymbolicLink -Target $nvimDirectory -Path "~/.config/nvim" | Out-Null
