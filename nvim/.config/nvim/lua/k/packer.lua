@@ -14,8 +14,6 @@ return require('packer').startup(function(use)
 
 	use { 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' } }
 
-	use { 'ThePrimeagen/harpoon', requires = { { "nvim-lua/plenary.nvim" } } }
-
 	use 'mbbill/undotree'
 
 	use 'tpope/vim-fugitive'
