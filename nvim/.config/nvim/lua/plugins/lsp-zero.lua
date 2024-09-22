@@ -21,6 +21,7 @@ return {
 		},
 		config = function()
 			local cmp = require('cmp')
+			local luasnip = require('luasnip')
 
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 			cmp.setup({
@@ -38,6 +39,18 @@ return {
 					['<Enter>'] = cmp.mapping.confirm(cmp_select),
 					['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
 					['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if require("copilot.suggestion").is_visible() then
+							require("copilot.suggestion").accept()
+						elseif cmp.visible() then
+							cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+						else
+							fallback()
+						end
+					end, {
+						"i",
+						"s",
+					}),
 				}),
 				snippet = {
 					expand = function(args)

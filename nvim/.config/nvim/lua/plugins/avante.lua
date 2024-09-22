@@ -19,22 +19,6 @@ return {
 			cmd = "Copilot",
 			event = "InsertEnter",
 			config = function()
-				local keys = {
-					['tab']      = vim.api.nvim_replace_termcodes('<Tab>', true, true, true),
-					['ctrl-y']   = vim.api.nvim_replace_termcodes('<C-y>', true, true, true),
-					['ctrl-tab'] = vim.api.nvim_replace_termcodes('<C-Tab>', true, true, true),
-				}
-				_G.tab_action = function()
-					if vim.fn.pumvisible() ~= 0 then
-						return keys['ctrl-y']
-					elseif require("copilot.suggestion").is_visible() then
-						require("copilot.suggestion").accept()
-						return
-					else
-						return keys['tab']
-					end
-				end
-				vim.keymap.set('i', '<Tab>', function() _G.tab_action() end, { expr = true })
 				require("copilot").setup({
 					suggestion = {
 						auto_trigger = true
