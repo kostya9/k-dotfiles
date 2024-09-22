@@ -34,7 +34,7 @@ return {
 						return keys['tab']
 					end
 				end
-				vim.keymap.set('i', '<Tab>', 'v:lua._G.tab_action()', { expr = true })
+				vim.keymap.set('i', '<Tab>', function() _G.tab_action() end, { expr = true })
 				require("copilot").setup({
 					suggestion = {
 						auto_trigger = true

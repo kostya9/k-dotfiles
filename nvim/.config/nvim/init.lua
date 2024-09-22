@@ -29,4 +29,5 @@ require("config.rose-pine")
 require("config.telescope")
 require("config.barbar")
 require("config.nvim-tree")
+require("config.luasnip")
 
