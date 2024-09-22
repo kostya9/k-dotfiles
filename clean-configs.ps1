@@ -1,24 +1,24 @@
 if (Test-Path ~\.ideavimrc)
 {
-	rm ~\.ideavimrc
+	Remove-Item ~\.ideavimrc
 }
 
 if (Test-Path ~\.config\nvim)
 {
-	rm ~\.config\nvim
+	Remove-Item ~\.config\nvim
 }
 
 if (Test-Path ~\.vimrc)
 {
-	rm ~\.vimrc
+	Remove-Item ~\.vimrc
 }
 
 if (Test-Path ~\.config\whkdrc)
 {
-	rm ~\.config\whkdrc
+	Remove-Item ~\.config\whkdrc
 }
 
 if (Test-Path ~\komorebi.json)
 {
-	rm ~\komorebi.json
+	Remove-Item ~\komorebi.json
 }
