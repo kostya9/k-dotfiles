@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 vim.api.nvim_set_option("clipboard","unnamed")
 
@@ -31,7 +30,3 @@ require("config.telescope")
 require("config.barbar")
 require("config.nvim-tree")
 
-=======
-vim.g.loaded_python3_provider=0
-require("k")
->>>>>>> a2718ae19933f69797b5fdcaae52ad979da59f49
