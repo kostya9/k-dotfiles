@@ -27,6 +27,8 @@ vim.opt.laststatus = 3
 -- set noshellslash
 vim.opt.shellslash = false
 
+vim.opt.shadafile = "NONE"
+
 require("config.lazy")
 require("config.rose-pine")
 require("config.telescope")
