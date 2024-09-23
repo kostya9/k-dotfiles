@@ -3,8 +3,13 @@ return {
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
 		"theHamsta/nvim-dap-virtual-text",
+		"williamboman/mason.nvim",
+		"jay-babu/mason-nvim-dap.nvim",
 	},
 	config = function()
+		require("mason-nvim-dap").setup({
+			ensure_installed = { "coreclr" }
+		})
 		local dap = require('dap')
 		vim.g.dotnet_build_project = function()
 			local default_path = vim.fn.getcwd() .. '/'
@@ -53,13 +58,16 @@ return {
 				end,
 			},
 		}
+		-- get stdpath data
+		local mason_install_dir = vim.fn.stdpath('data') .. '/mason/packages'
+		print(mason_install_dir)
 
 		dap.configurations.cs = config
 		dap.configurations.fsharp = config
 
 		dap.adapters.coreclr = {
 			type = 'executable',
-			command = 'C:\\Program Files\\netcoredbg\\netcoredbg.exe',
+			command = mason_install_dir .. '/netcoredbg/netcoredbg/netcoredbg.exe',
 			args = { '--interpreter=vscode' }
 		}
 	end
