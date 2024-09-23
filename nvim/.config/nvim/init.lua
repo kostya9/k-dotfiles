@@ -23,10 +23,6 @@ vim.g.nvim_tree_quit_on_open = 0 -- this doesn't play well with barbar
 -- for avante
 -- views can only be fully collapsed with the global statusline
 vim.opt.laststatus = 3
-
--- set noshellslash
-vim.opt.shellslash = false
-
 vim.opt.shadafile = "NONE"
 
 require("config.lazy")
@@ -35,4 +31,11 @@ require("config.telescope")
 require("config.barbar")
 require("config.nvim-tree")
 require("config.luasnip")
+
+-- for some reason shellslash is being reset to true
+vim.opt.shellslash = false
+vim.defer_fn(function()
+  vim.opt.shellslash = false
+end, 5000)
+
 
