@@ -9,3 +9,5 @@ end)
 vim.keymap.set('n', '<leader>vh', function()
 	builtin.help_tags()
 end)
+
+require('telescope').load_extension('dap')

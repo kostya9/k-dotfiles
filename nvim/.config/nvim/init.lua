@@ -24,6 +24,9 @@ vim.g.nvim_tree_quit_on_open = 0 -- this doesn't play well with barbar
 -- views can only be fully collapsed with the global statusline
 vim.opt.laststatus = 3
 
+-- set noshellslash
+vim.opt.shellslash = false
+
 require("config.lazy")
 require("config.rose-pine")
 require("config.telescope")

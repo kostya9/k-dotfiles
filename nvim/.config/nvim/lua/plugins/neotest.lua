@@ -10,7 +10,19 @@ return {
 	config = function()
 		require("neotest").setup({
 			adapters = {
-				require("neotest-dotnet")
+				require("neotest-dotnet")({
+					dap = {
+						-- Extra arguments for nvim-dap configuration
+						-- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
+						args = { justMyCode = false },
+						-- Enter the name of your dap adapter, the default value is netcoredbg
+						adapter_name = "coreclr"
+					},
+
+					dotnet_additional_args = {
+						"-c Debug"
+					},
+				})
 			},
 			status = { virtual_text = true },
 			output = { open_on_run = true },
