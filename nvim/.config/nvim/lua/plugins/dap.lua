@@ -94,7 +94,7 @@ return {
 		vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "DAP: Step over" })
 		vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "DAP: Step into" })
 		vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP: Continue" })
-		vim.keymap.set("n", "<leader>ds", dap.stop, { desc = "DAP: Stop" })
+		vim.keymap.set("n", "<leader>ds", dap.terminate, { desc = "DAP: Stop" })
 		vim.keymap.set("n", "<leader>dr", dap.run_to_cursor, { desc = "DAP: Run to cursor" })
 		vim.keymap.set("n", "<leader>da", function()
 			require('telescope').extensions.dap.commands()
