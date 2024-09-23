@@ -85,11 +85,8 @@ return {
 		end
 		dapui.setup({})
 
-		-- vim fn signdefine pretty breakpoint
 		vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
-		-- and other icons
 		vim.fn.sign_define('DapLogPoint', { text = '📝', texthl = '', linehl = '', numhl = '' })
-		-- and the stopped icon with a pretty icon with a triangle pointing right
 		vim.fn.sign_define('DapStopped', { text = '', texthl = '', linehl = '', numhl = '' })
 
 
