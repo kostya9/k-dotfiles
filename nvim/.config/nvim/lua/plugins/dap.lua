@@ -85,13 +85,21 @@ return {
 		end
 		dapui.setup({})
 
-		vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP: Toggle breackpoint" })
+		-- vim fn signdefine pretty breakpoint
+		vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
+		-- and other icons
+		vim.fn.sign_define('DapLogPoint', { text = '📝', texthl = '', linehl = '', numhl = '' })
+		-- and the stopped icon with a pretty icon with a triangle pointing right
+		vim.fn.sign_define('DapStopped', { text = '', texthl = '', linehl = '', numhl = '' })
+
+
+		vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP: Toggle breakpoint" })
 		vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "DAP: Step over" })
 		vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "DAP: Step into" })
 		vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP: Continue" })
 		vim.keymap.set("n", "<leader>ds", dap.stop, { desc = "DAP: Stop" })
 		vim.keymap.set("n", "<leader>dr", dap.run_to_cursor, { desc = "DAP: Run to cursor" })
-		vim.keymap.set("n", "<leader>dc", function()
+		vim.keymap.set("n", "<leader>da", function()
 			require('telescope').extensions.dap.commands()
 		end, { desc = "DAP: Commands" })
 	end
