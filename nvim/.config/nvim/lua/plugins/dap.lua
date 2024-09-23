@@ -60,7 +60,6 @@ return {
 		}
 		-- get stdpath data
 		local mason_install_dir = vim.fn.stdpath('data') .. '/mason/packages'
-		print(mason_install_dir)
 
 		dap.configurations.cs = config
 		dap.configurations.fsharp = config
