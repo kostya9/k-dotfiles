@@ -25,6 +25,9 @@ vim.g.nvim_tree_quit_on_open = 0 -- this doesn't play well with barbar
 vim.opt.laststatus = 3
 vim.opt.shadafile = "NONE"
 
+-- This unsets the "last search pattern" register by hitting return
+vim.keymap.set({ "n", "v" }, "<CR>", ":nohlsearch<CR><CR>", { silent = true })
+
 require("config.lazy")
 require("config.rose-pine")
 require("config.telescope")
