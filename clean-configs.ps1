@@ -8,6 +8,16 @@ if (Test-Path ~\.config\nvim)
 	Remove-Item ~\.config\nvim
 }
 
+if (Test-Path ~\.config\lazygit)
+{
+	Remove-Item ~\.config\lazygit -Recurse -Force
+}
+
+if (Test-Path $env:APPDATA\aichat)
+{
+	Remove-Item $env:APPDATA\aichat -Recurse -Force
+}
+
 if (Test-Path ~\.vimrc)
 {
 	Remove-Item ~\.vimrc
