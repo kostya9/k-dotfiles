@@ -99,6 +99,7 @@ Please suggest a single commit messages, given the following diff:
         test(unit): add new test cases
         style: remove unused imports
         refactor(pages): extract common code to `utils/wait.ts`
+	MISC-3308: add password regex pattern
 
         **Instructions:**
 
