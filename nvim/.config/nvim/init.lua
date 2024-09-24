@@ -30,11 +30,18 @@ vim.opt.shadafile = "NONE"
 vim.keymap.set({ "n", "v" }, "<CR>", ":nohlsearch<CR><CR>", { silent = true })
 
 -- get text from aibot cmd on ctrl-t
-vim.keymap.set({ "n", "i" }, "<C-t>", function() AibotGetText() end)
+vim.keymap.set({ "n", "i" }, "<C-t>", function() AichatGenerateGitCommitMessage() end)
 
 -- setup global function AibotGetText
-_G.AibotGetText = function()
+_G.AichatGenerateGitCommitMessage = function()
 	local diff = vim.fn.system("git diff --cached")
+
+	if diff == "" then
+		diff = vim.fn.system("git diff HEAD")
+	end
+
+	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
+
 	local recentCommits = vim.fn.system("git log -n 10 --pretty=format:'%h %s'")
 	local prompt = [[
 Please suggest a single commit messages, given the following diff:
@@ -46,13 +53,24 @@ Please suggest a single commit messages, given the following diff:
         **Criteria:**
 
         1. **Format:** Each commit message must follow the conventional commits format,
-        which is `<type>(<scope>): <description>`.
+        which is `<jira-ticket-code>: <description>`.
         2. **Relevance:** Avoid mentioning a module name unless it's directly relevant
         to the change.
-        3. **Enumeration:** List the commit messages from 1 to 10.
-        4. **Clarity and Conciseness:** Each message should clearly and concisely convey
+        3. **Clarity and Conciseness:** Each message should clearly and concisely convey
         the change made.
 
+	Please consider that the branch you are working on is:
+	```
+	]] .. branch .. [[
+	```
+
+	**If the branch contains JIRA ticket, please include it in the commit message.**
+	Examples:
+	MISC-2287: add password regex pattern
+	PRODUCT-123: add new test cases
+	MISC-7792: remove unused imports
+
+        **Otherwise, follow the format below: <type>(<scope>): <description>**
         **Commit Message Examples:**
 
         - fix(app): add password regex pattern

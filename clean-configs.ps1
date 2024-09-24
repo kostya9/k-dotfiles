@@ -32,3 +32,4 @@ if (Test-Path ~\komorebi.json)
 {
 	Remove-Item ~\komorebi.json
 }
+
