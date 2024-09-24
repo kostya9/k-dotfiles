@@ -56,7 +56,8 @@ Please suggest a single commit messages, given the following diff:
         which is `<jira-ticket-code>: <description>`.
         2. **Relevance:** Avoid mentioning a module name unless it's directly relevant
         to the change.
-        3. **Clarity and Conciseness:** Each message should clearly and concisely convey
+        3. **Enumeration:** List the commit messages from 1 to 10.
+        4. **Clarity and Conciseness:** Each message should clearly and concisely convey
         the change made.
 
 	Please consider that the branch you are working on is:
@@ -112,12 +113,13 @@ Please suggest a single commit messages, given the following diff:
         - If multiple changes are present, make sure you capture them all in each commit
         message.
 
-        Keep in mind you will suggest a single commit message. Only 1 will be used. It's
+        Keep in mind you will suggest 10 commit messages. Only 1 will be used. It's
         better to push yourself (esp to synthesize to a higher level) and maybe wrong
         about some of the 10 commits because only one needs to be good. I'm looking
-        for your best commit, not the best average commit.
+        for your best commit, not the best average commit. It's better to cover more
+        scenarios than include a lot of overlap.
 
-        Write your best commit message below in the format shown in Output Template section above.
+        Write your 10 commit messages below in the format shown in Output Template section above.
 
 		]]
 
@@ -126,9 +128,34 @@ Please suggest a single commit messages, given the following diff:
 	-- run aichat command with prompt
 	local text = vim.fn.system("aichat ", prompt)
 
-	-- add to cliptboard
-	vim.fn.setreg("+", text)
-	vim.notify("Copied commit message to clipboard " .. text .. "")
+	-- split text by newline
+	text = vim.fn.split(text, "\n")
+
+	-- select only the lines that are not empty
+	text = vim.fn.filter(text, "v:val != ''")
+
+	print(type(text))
+	-- select a single line from the text with telescope plugin
+	text = require("telescope.pickers").new({}, {
+		prompt_title = "Select a commit message",
+		results_title = "Commit Messages",
+		finder = require("telescope.finders").new_table {
+			results = text,
+		},
+		attach_mappings = function(prompt_bufnr, map)
+			local select_commit = function()
+				local selection = require("telescope.actions.state").get_selected_entry(prompt_bufnr)
+				require("telescope.actions").close(prompt_bufnr)
+				vim.notify("Copied commit message to clipboard " .. selection.value .. "")
+				vim.fn.setreg("+", selection.value)
+			end
+
+			map("i", "<CR>", select_commit)
+			map("n", "<CR>", select_commit)
+
+			return true
+		end,
+	}):find()
 end
 
 require("config.lazy")
