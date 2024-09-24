@@ -40,6 +40,11 @@ _G.AichatGenerateGitCommitMessage = function()
 		diff = vim.fn.system("git diff -U20 HEAD")
 	end
 
+	if diff == "" then
+		vim.notify("No changes to commit")
+		return
+	end
+
 	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
 
 	local recentCommits = vim.fn.system("git log -n 10 --pretty=format:'%h %s'")
