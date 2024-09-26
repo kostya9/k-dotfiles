@@ -92,11 +92,11 @@ return {
 				vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
 				vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
 				vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-				vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 				vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>',
 					opts)
 				vim.keymap.set('n', '<C-a>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 				vim.keymap.set('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<cr>', opts)
+				vim.keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 			end
 
 			lsp_zero.extend_lspconfig({
@@ -129,6 +129,9 @@ return {
 
 							-- Enables support for roslyn analyzers, code fixes and rulesets.
 							enable_roslyn_analyzers = true,
+
+							-- Enables support for roslyn analyzers, code fixes and rulesets.
+							enable_analyzers_support = true,
 
 							-- Specifies whether 'using' directives should be grouped and sorted during
 							-- document formatting.
