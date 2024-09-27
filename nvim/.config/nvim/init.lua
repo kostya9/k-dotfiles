@@ -34,10 +34,10 @@ vim.keymap.set({ "n", "i" }, "<C-t>", function() AichatGenerateGitCommitMessage(
 
 -- setup global function AibotGetText
 _G.AichatGenerateGitCommitMessage = function()
-	local diff = vim.fn.system("git diff -U20 --cached")
+	local diff = vim.fn.system("git --no-pager diff -U6 --cached")
 
 	if diff == "" then
-		diff = vim.fn.system("git diff -U20 HEAD")
+		diff = vim.fn.system("git --no-pager diff -U6 HEAD")
 	end
 
 	if diff == "" then
@@ -45,9 +45,9 @@ _G.AichatGenerateGitCommitMessage = function()
 		return
 	end
 
-	local branch = vim.fn.system("git rev-parse --abbrev-ref HEAD")
+	local branch = vim.fn.system({"git", "rev-parse", "--abbrev-ref", "HEAD"})
 
-	local recentCommits = vim.fn.system("git log -n 10 --pretty=format:'%h %s'")
+	local recentCommits = vim.fn.system({"git", "log", "-n 10", "--pretty=format:'%h %s'"})
 	local prompt = [[
 Please suggest a single commit messages, given the following diff:
 
@@ -130,6 +130,7 @@ Please suggest a single commit messages, given the following diff:
 		]]
 
 	vim.notify("Asking AI for commit message... ")
+
 
 	-- run aichat command with prompt
 	local text = vim.fn.system("aichat ", prompt)
