@@ -14,6 +14,10 @@ vim.g.encoding = "UTF-8"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+vim.opt.splitright = true
+
+vim.opt.shell = "pwsh"
+
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
@@ -31,6 +35,11 @@ vim.keymap.set({ "n", "v" }, "<CR>", ":nohlsearch<CR><CR>", { silent = true })
 
 -- get text from aibot cmd on ctrl-t
 vim.keymap.set({ "n", "i" }, "<C-t>", function() AichatGenerateGitCommitMessage() end)
+
+-- close  terminal with <ESC>
+vim.api.nvim_set_keymap(  't'  ,  '<ESC>'  ,  '<C-\\><C-n>'  ,  {noremap = true}  )
+vim.api.nvim_set_keymap(  'n'  ,  '<leader>ot'  ,  ':sp | terminal<CR>:set nobuflisted<CR>'  ,  {noremap = true}  )
+vim.api.nvim_set_keymap(  'n'  ,  '<leader>ovt'  ,  ':vsp | terminal<CR>:set nobuflisted<CR>'  ,  {noremap = true}  )
 
 -- setup global function AibotGetText
 _G.AichatGenerateGitCommitMessage = function()
