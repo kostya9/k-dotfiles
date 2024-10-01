@@ -10,7 +10,20 @@ return {
 		lazy = false,
 		config = true,
 	},
-
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				"lazy.nvim",
+				"LazyVim",
+			},
+		},
+	},
+	{ "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
 	-- Autocompletion
 	{
 		'hrsh7th/nvim-cmp',
@@ -26,10 +39,14 @@ return {
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 			cmp.setup({
 				sources = {
+					{
+						name = "lazydev",
+						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+					},
 					{ name = 'nvim_lsp' },
 					{ name = 'luasnip' },
 					{ name = 'buffer' },
-					{ name = 'path' }
+					{ name = 'path' },
 				},
 				mapping = cmp.mapping.preset.insert({
 					['<C-Space>'] = cmp.mapping.complete(),
@@ -73,6 +90,7 @@ return {
 			{ 'williamboman/mason.nvim' },
 			{ 'williamboman/mason-lspconfig.nvim' },
 			{ 'Hoffs/omnisharp-extended-lsp.nvim' },
+			{ 'ckipp01/stylua-nvim' }
 		},
 		config = function()
 			local lsp_zero = require('lsp-zero')
@@ -164,7 +182,24 @@ return {
 									'omnisharp_extended').handler,
 							},
 						})
-					end
+					end,
+					lua_ls = function()
+						require('lspconfig').lua_ls.setup({
+							settings = {
+								Lua = {
+									format = {
+										enable = true,
+										-- Put format options here
+										-- NOTE: the value should be STRING!!
+										defaultConfig = {
+											indent_style = "space",
+											indent_size = "2",
+										}
+									}
+								}
+							},
+						})
+					end,
 				}
 			})
 
@@ -177,12 +212,12 @@ return {
 
 					if client.name == 'omnisharp' then
 						local tokenModifiers = client.server_capabilities.semanticTokensProvider
-						.legend.tokenModifiers
+						    .legend.tokenModifiers
 						for i, v in ipairs(tokenModifiers) do
 							tokenModifiers[i] = toSnakeCase(v)
 						end
 						local tokenTypes = client.server_capabilities.semanticTokensProvider
-						.legend.tokenTypes
+						    .legend.tokenTypes
 						for i, v in ipairs(tokenTypes) do
 							tokenTypes[i] = toSnakeCase(v)
 						end

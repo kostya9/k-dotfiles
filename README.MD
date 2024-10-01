@@ -11,3 +11,4 @@ For neovim config to work correctly, you need to have
 - Install lazygit (winget install lazygit)
 - fzf
 - cargo install aichat
+- cargo install stylua
