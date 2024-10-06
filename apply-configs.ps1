@@ -21,6 +21,9 @@ New-Item -ItemType SymbolicLink -Target $whkdrcLocation -Path "~/.config/whkdrc"
 $komorebiLocation = Join-Path $currentDirectory "komorebi/komorebi.json"
 New-Item -ItemType SymbolicLink -Target $komorebiLocation -Path "~/komorebi.json" | Out-Null
 
+$komorebiBarLocation = Join-Path $currentDirectory "komorebi/komorebi.bar.json"
+New-Item -ItemType SymbolicLink -Target $komorebiBarLocation -Path "~/komorebi.bar.json" | Out-Null
+
 $lazygitDirectory = Join-Path $currentDirectory "lazygit"
 New-Item -ItemType SymbolicLink -Target $lazygitDirectory -Path "~/.config/lazygit" | Out-Null
 
