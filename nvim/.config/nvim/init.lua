@@ -23,6 +23,7 @@ vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 vim.o.shellquote = ""
 vim.o.shellxquote = ""
 
+vim.opt.pumblend = 0
 
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
