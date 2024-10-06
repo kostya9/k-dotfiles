@@ -33,3 +33,8 @@ if (Test-Path ~\komorebi.json)
 	Remove-Item ~\komorebi.json
 }
 
+
+if (Test-Path $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json)
+{
+	Remove-Item $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Recurse -Force
+}
