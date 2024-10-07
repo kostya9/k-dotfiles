@@ -12,3 +12,10 @@ For neovim config to work correctly, you need to have
 - fzf
 - cargo install aichat
 - cargo install stylua
+- Install Caskaydia Cove Nerd Font 
+```powershell
+& ([scriptblock]::Create((iwr 'https://to.loredo.me/Install-NerdFont.ps1')))
+```
+
+
+Check the checkbox for enabling powershell scripts

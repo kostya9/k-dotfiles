@@ -5,7 +5,8 @@ return {
 		"nvim-lua/plenary.nvim",
 		"antoinemadec/FixCursorHold.nvim",
 		"nvim-treesitter/nvim-treesitter",
-		"Issafalcon/neotest-dotnet"
+		"Issafalcon/neotest-dotnet",
+		"nvim-neotest/neotest-python",
 	},
 	config = function()
 		require("neotest").setup({
@@ -22,6 +23,9 @@ return {
 					dotnet_additional_args = {
 						"-c Debug"
 					},
+				}),
+				require("neotest-python")({
+					runner = "unittest",
 				})
 			},
 			status = { virtual_text = true },
