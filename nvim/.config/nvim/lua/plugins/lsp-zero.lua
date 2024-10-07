@@ -112,7 +112,7 @@ return {
 				vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
 				vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>',
 					opts)
-				vim.keymap.set('n', '<C-a>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+				vim.keymap.set({ 'n', 'v' }, '<C-a>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
 				vim.keymap.set('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<cr>', opts)
 				vim.keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 			end
@@ -124,7 +124,7 @@ return {
 			})
 
 			require('mason-lspconfig').setup({
-				ensure_installed = { "omnisharp" },
+				ensure_installed = { "omnisharp", "powershell_es", "lua_ls" },
 				handlers = {
 					-- this first function is the "default handler"
 					-- it applies to every language server without a "custom handler"
