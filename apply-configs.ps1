@@ -31,4 +31,4 @@ $aichatDirectory = Join-Path $currentDirectory "aichat"
 New-Item -ItemType SymbolicLink -Target $aichatDirectory -Path "$env:APPDATA/aichat" | Out-Null
 
 $windowsTerminalSettingsLocation = Join-Path $currentDirectory "windows-terminal/settings.json"
-New-Item -Force -ItemType SymbolicLink -Target $windowsTerminalSettingsLocation -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" | Out-Null
+Copy-Item -Path $windowsTerminalSettingsLocation -Destination "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" -Force
