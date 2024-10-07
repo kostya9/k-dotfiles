@@ -6,14 +6,13 @@ require("rose-pine").setup({
 
     enable = {
         terminal = true,
-        legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
         migrations = true, -- Handle deprecated options automatically
     },
 
     styles = {
         bold = true,
         italic = false,
-        transparency = false,
+        transparency = true,
     },
 
     groups = {

@@ -21,8 +21,14 @@ New-Item -ItemType SymbolicLink -Target $whkdrcLocation -Path "~/.config/whkdrc"
 $komorebiLocation = Join-Path $currentDirectory "komorebi/komorebi.json"
 Copy-Item -Path $komorebiLocation -Destination "~/komorebi.json"
 
+$komorebiBarLocation = Join-Path $currentDirectory "komorebi/komorebi.bar.json"
+New-Item -ItemType SymbolicLink -Target $komorebiBarLocation -Path "~/komorebi.bar.json" | Out-Null
+
 $lazygitDirectory = Join-Path $currentDirectory "lazygit"
 New-Item -ItemType SymbolicLink -Target $lazygitDirectory -Path "~/.config/lazygit" | Out-Null
 
 $aichatDirectory = Join-Path $currentDirectory "aichat"
 New-Item -ItemType SymbolicLink -Target $aichatDirectory -Path "$env:APPDATA/aichat" | Out-Null
+
+$windowsTerminalSettingsLocation = Join-Path $currentDirectory "windows-terminal/settings.json"
+New-Item -Force -ItemType SymbolicLink -Target $windowsTerminalSettingsLocation -Path "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" | Out-Null
