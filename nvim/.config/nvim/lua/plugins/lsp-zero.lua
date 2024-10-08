@@ -90,7 +90,7 @@ return {
 					"lua_ls",
 					"stylua",
 					"pyright",
-					"ruff-lsp"
+					"ruff-lsp",
 				},
 				run_on_start = true,
 			})
@@ -107,7 +107,8 @@ return {
 			{ 'williamboman/mason.nvim' },
 			{ 'williamboman/mason-lspconfig.nvim' },
 			{ 'Hoffs/omnisharp-extended-lsp.nvim' },
-			{ 'ckipp01/stylua-nvim' }
+			{ 'ckipp01/stylua-nvim' },
+			{ 'jlcrochet/vim-razor' },
 		},
 		config = function()
 			local lsp_zero = require('lsp-zero')
