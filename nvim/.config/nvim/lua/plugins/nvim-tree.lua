@@ -1,3 +1,18 @@
+local function custom_on_attach(bufnr)
+	local api = require "nvim-tree.api"
+
+	local function opts(desc)
+		return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+	end
+
+	-- default mappings
+	api.config.mappings.default_on_attach(bufnr)
+
+	-- custom mappings
+	vim.keymap.set('n', 'gp', api.node.navigate.diagnostics.prev_recursive, opts('Prev diagnostic'))
+	vim.keymap.set('n', 'ge', api.node.navigate.diagnostics.next_recursive, opts('Next diagnostic'))
+end
+
 return {
 	"nvim-tree/nvim-tree.lua",
 	version = "*",
@@ -44,5 +59,6 @@ return {
 				},
 			},
 		},
+		on_attach = custom_on_attach,
 	},
 }
