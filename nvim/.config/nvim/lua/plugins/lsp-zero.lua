@@ -80,6 +80,23 @@ return {
 		end
 	},
 
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		config = function()
+			require('mason-tool-installer').setup({
+				ensure_installed = {
+					"omnisharp",
+					"powershell_es",
+					"lua_ls",
+					"stylua",
+					"pyright",
+					"ruff-lsp"
+				},
+				run_on_start = true,
+			})
+		end
+	},
+
 	-- LSP
 	{
 		'neovim/nvim-lspconfig',
@@ -113,10 +130,12 @@ return {
 				vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>',
 					opts)
 				vim.keymap.set({ 'n', 'v' }, '<C-a>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-				vim.keymap.set('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<cr>', opts)
+				vim.keymap.set('n', '<leader>f', function()
+					vim.lsp.buf.format()
+				end, { silent = true, buffer = bufnr })
 				vim.keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 			end
-
+			vim.diagnostic.config { update_in_insert = true }
 			lsp_zero.extend_lspconfig({
 				sign_text = true,
 				lsp_attach = lsp_attach,
@@ -124,7 +143,6 @@ return {
 			})
 
 			require('mason-lspconfig').setup({
-				ensure_installed = { "omnisharp", "powershell_es", "lua_ls" },
 				handlers = {
 					-- this first function is the "default handler"
 					-- it applies to every language server without a "custom handler"
