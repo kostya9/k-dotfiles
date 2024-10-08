@@ -8,7 +8,7 @@
   "copilot.lua": { "branch": "master", "commit": "1a237cf50372830a61d92b0adf00d3b23882e0e1" },
   "dotnet.nvim": { "branch": "main", "commit": "8c35ce02f8a4b785cd9b5ce6c8bb1cf934ccc3da" },
   "dressing.nvim": { "branch": "master", "commit": "1b7921eecc65af1baf8ac1dc06f0794934cbcfb2" },
-  "dropbar.nvim": { "branch": "master", "commit": "5f0da7fa51e4e884e9ab1dc02cd32509252cdf19" },
+  "dropbar.nvim": { "branch": "master", "commit": "35988affc74c0cebb1484bcdfccfed523c0e7267" },
   "gitsigns.nvim": { "branch": "main", "commit": "863903631e676b33e8be2acb17512fdc1b80b4fb" },
   "img-clip.nvim": { "branch": "main", "commit": "28a32d811d69042f4fa5c3d5fa35571df2bc1623" },
   "lazy.nvim": { "branch": "main", "commit": "1159bdccd8910a0fd0914b24d6c3d186689023d9" },

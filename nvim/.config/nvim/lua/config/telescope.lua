@@ -12,7 +12,7 @@ vim.keymap.set('n', '<leader>vh', function()
 end)
 
 vim.keymap.set('n', 'gu', function()
-	require('telescope.builtin').lsp_references()
+	require('telescope.builtin').lsp_references({include_declaration = false})
 end)
 
 require('telescope').load_extension('dap')
