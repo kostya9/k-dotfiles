@@ -181,6 +181,9 @@ Please suggest a single commit messages, given the following diff:
 	}):find()
 end
 
+-- set file type for Dockerfile-*
+vim.api.nvim_command("au BufNewFile,BufRead Dockerfile* set filetype=dockerfile")
+
 require("config.lazy")
 require("config.rose-pine")
 require("config.telescope")

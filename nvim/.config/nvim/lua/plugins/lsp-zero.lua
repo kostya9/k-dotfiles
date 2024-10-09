@@ -85,7 +85,8 @@ return {
 		config = function()
 			require('mason-tool-installer').setup({
 				ensure_installed = {
-					"omnisharp",
+					-- "omnisharp",
+					"csharp-language-server",
 					"powershell_es",
 					"lua_ls",
 					"stylua",
@@ -108,7 +109,7 @@ return {
 			{ 'williamboman/mason-lspconfig.nvim' },
 			{ 'Hoffs/omnisharp-extended-lsp.nvim' },
 			{ 'ckipp01/stylua-nvim' },
-			{ 'jlcrochet/vim-razor' },
+--			{ 'jlcrochet/vim-razor' },
 		},
 		config = function()
 			local lsp_zero = require('lsp-zero')
