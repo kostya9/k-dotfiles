@@ -109,7 +109,8 @@ return {
 			{ 'williamboman/mason-lspconfig.nvim' },
 			{ 'Hoffs/omnisharp-extended-lsp.nvim' },
 			{ 'ckipp01/stylua-nvim' },
---			{ 'jlcrochet/vim-razor' },
+			{ 'Decodetalkers/csharpls-extended-lsp.nvim' }
+			--			{ 'jlcrochet/vim-razor' },
 		},
 		config = function()
 			local lsp_zero = require('lsp-zero')
@@ -200,6 +201,17 @@ return {
 									'omnisharp_extended').handler,
 							},
 						})
+					end,
+					csharp_ls = function()
+						local config = {
+							handlers = {
+								["textDocument/definition"] = require(
+									'csharpls_extended').handler,
+								["textDocument/typeDefinition"] = require(
+									'csharpls_extended').handler,
+							},
+						}
+						require 'lspconfig'.csharp_ls.setup(config)
 					end,
 					lua_ls = function()
 						require('lspconfig').lua_ls.setup({

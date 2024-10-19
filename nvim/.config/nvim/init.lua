@@ -27,6 +27,12 @@ vim.o.shellxquote = ""
 
 vim.opt.pumblend = 0
 
+vim.opt.updatetime = 50
+vim.opt.incsearch = true
+vim.opt.wrap = false
+vim.opt.smartindent = true
+
+
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
@@ -49,6 +55,30 @@ vim.keymap.set({ "n", "i" }, "<C-t>", function() AichatGenerateGitCommitMessage(
 vim.api.nvim_set_keymap(  't'  ,  '<ESC>'  ,  '<C-\\><C-n>'  ,  {noremap = true}  )
 vim.api.nvim_set_keymap(  'n'  ,  '<leader>ot'  ,  ':sp | terminal<CR>:set nobuflisted<CR>'  ,  {noremap = true}  )
 vim.api.nvim_set_keymap(  'n'  ,  '<leader>ovt'  ,  ':vsp | terminal<CR>:set nobuflisted<CR>'  ,  {noremap = true}  )
+
+-- move lines up and down
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Scroll and center cursor
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- Go to search result and center view
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+-- Disable Ex mode
+vim.keymap.set("n", "Q", "<nop>")
+
+-- Navigate to item in quickfix list
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+
+-- Navigate to item in location list
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
 
 -- setup global function AibotGetText
 _G.AichatGenerateGitCommitMessage = function()
