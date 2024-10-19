@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 vim.api.nvim_set_option("clipboard", "unnamed")
 
 vim.opt.relativenumber = true
