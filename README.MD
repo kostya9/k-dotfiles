@@ -17,5 +17,14 @@ For neovim config to work correctly, you need to have
 & ([scriptblock]::Create((iwr 'https://to.loredo.me/Install-NerdFont.ps1')))
 ```
 
+For GitLab:
+- setup GITLAB_TOKEN 
+- setup GITLAB_URL to the gitlab instance
+- winget install GnuWin32.Make
+- winget install Golang.Go
+- not sure why the plugin doesnt do this, but run
+`go build -o bin.exe` ./cmd in `%localappdata%\nvim-data\lazy\gitlab.nvim`
+and copy config folder everywhere?
+ 
 
 Check the checkbox for enabling powershell scripts

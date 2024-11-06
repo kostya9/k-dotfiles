@@ -21,8 +21,11 @@ return {
 			config = function()
 				require("copilot").setup({
 					suggestion = {
-						auto_trigger = true
+						auto_trigger = true,
 
+					},
+					filetypes = {
+						markdown = true
 					}
 				})
 			end

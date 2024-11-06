@@ -92,6 +92,7 @@ return {
 					"stylua",
 					"pyright",
 					"ruff-lsp",
+					"grammarly-languageserver"
 				},
 				run_on_start = true,
 			})
@@ -109,8 +110,9 @@ return {
 			{ 'williamboman/mason-lspconfig.nvim' },
 			{ 'Hoffs/omnisharp-extended-lsp.nvim' },
 			{ 'ckipp01/stylua-nvim' },
-			{ 'Decodetalkers/csharpls-extended-lsp.nvim' }
+			{ 'Decodetalkers/csharpls-extended-lsp.nvim' },
 			--			{ 'jlcrochet/vim-razor' },
+			{ 'jmbuhr/otter.nvim' }
 		},
 		config = function()
 			local lsp_zero = require('lsp-zero')
