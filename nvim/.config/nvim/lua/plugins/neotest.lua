@@ -8,6 +8,7 @@ return {
 		"Issafalcon/neotest-dotnet",
 		"nvim-neotest/neotest-python",
 	},
+	lazy = true,
 	config = function()
 		require("neotest").setup({
 			adapters = {

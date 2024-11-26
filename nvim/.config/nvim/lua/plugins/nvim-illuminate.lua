@@ -1,5 +1,6 @@
 return {
 	"RRethy/vim-illuminate",
+	lazy = true,
 	config = function()
 		require("illuminate").configure({
 			highlight_on = "cursor_hold",

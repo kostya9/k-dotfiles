@@ -2,6 +2,7 @@ return {
 	"MoaidHathot/dotnet.nvim",
 	cmd = "DotnetUI",
 	opts = {},
+	lazy = true,
 	config = function()
 		require("dotnet").setup({})
 
