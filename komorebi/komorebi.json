@@ -1,37 +1,37 @@
 {
-	"$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.29/schema.json",
-	"window_hiding_behaviour": "Cloak",
-	"cross_monitor_move_behaviour": "Insert",
-	"default_workspace_padding": 5,
-	"default_container_padding": 1,
-	"mouse_follows_focus": false,
-	"border": true,
-	"border_width": 1,
-	"border_offset": 1,
-	"transparency": true,
-	"transparency_alpha": 240,
-	"animation": {
-		"enabled": true
-	},
-	"border_colours": {
-		"single": "#42a5f5",
-		"stack": "#00a542",
-		"monocle": "#ff3399",
-		"unfocused": "#808080"
-	},
-	"app_specific_configuration_path": "~/applications.yaml",
-	"monitors": [
-		{
-			"workspaces": [
-				{
-					"name": "I",
-					"layout": "BSP"
-				},
-				{
-					"name": "II",
-					"layout": "VerticalStack"
-				}
-			]
-		}
-	]
+    "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.30/schema.json",
+    "window_hiding_behaviour": "Cloak",
+    "cross_monitor_move_behaviour": "Insert",
+    "default_workspace_padding": 5,
+    "default_container_padding": 1,
+    "mouse_follows_focus": false,
+    "border": true,
+    "border_width": 1,
+    "border_offset": 1,
+    "transparency": true,
+    "transparency_alpha": 240,
+    "animation": {
+        "enabled": true
+    },
+    "border_colours": {
+        "single": "#42a5f5",
+        "stack": "#00a542",
+        "monocle": "#ff3399",
+        "unfocused": "#808080"
+    },
+    "app_specific_configuration_path": "~\\applications.yaml",
+    "monitors": [
+        {
+            "workspaces": [
+                {
+                    "name": "I",
+                    "layout": "BSP"
+                },
+                {
+                    "name": "II",
+                    "layout": "VerticalStack"
+                }
+            ]
+        }
+    ]
 }
