@@ -1,5 +1,6 @@
 return {
 	"harrisoncramer/gitlab.nvim",
+	branch = '390-plugin-fails-to-build',
 	dependencies = {
 		"MunifTanjim/nui.nvim",
 		"nvim-lua/plenary.nvim",
@@ -7,8 +8,8 @@ return {
 		"stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
 		"nvim-tree/nvim-web-devicons" -- Recommended but not required. Icons in discussion tree.
 	},
-	enabled = false,
 	build = function() require("gitlab.server").build(true) end, -- Builds the Go binary
+	enabled = true,
 	config = function()
 		require("gitlab").setup({
 			debug = {

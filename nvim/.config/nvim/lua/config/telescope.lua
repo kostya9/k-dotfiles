@@ -14,7 +14,8 @@ vim.keymap.set('v', '<leader>ps', function()
 	builtin.grep_string({ search = lines[0] })
 end)
 vim.keymap.set('n', '<leader>pd', function()
-	builtin.diagnostics()
+	local diagnostic_types = { vim.diagnostic.severity.ERROR, vim.diagnostic.severity.WARN }
+	builtin.diagnostics({ severity = diagnostic_types })
 end)
 -- Add help tags
 vim.keymap.set('n', '<leader>vh', function()

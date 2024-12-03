@@ -1,5 +1,10 @@
 vim.loader.enable()
 
+-- Disable watching of bin and obj folders
+vim.opt.wildignore:append(
+"*/bin/*,*/obj/*,*/node_modules/*,*/dist/*,*/target/*,*/.git/*,*/.svn/*,*/.hg/*,*/.DS_Store/*,*/.vscode/*,*/.cache/*,*/.idea/*,*/.gradle/*,*/.settings/*,*/.classpath/*,*/.project/*,*/.factorypath/*,*/.metadata/*,*/.recommenders/*,*/.history/*,*/.log")
+
+
 vim.api.nvim_set_option("clipboard", "unnamed")
 
 vim.opt.relativenumber = true
@@ -12,6 +17,9 @@ vim.opt.isfname:append("@-@")
 vim.g.mapleader = " "
 vim.g.encoding = "UTF-8"
 
+-- tab size
+vim.opt.tabstop = 4
+
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -19,7 +27,8 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.splitright = true
 
 vim.opt.shell = "pwsh"
-vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+vim.o.shellcmdflag =
+"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
 vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
 vim.o.shellquote = ""
@@ -52,9 +61,9 @@ vim.keymap.set({ "n", "v" }, "<CR>", ":nohlsearch<CR><CR>", { silent = true })
 vim.keymap.set({ "n", "i" }, "<C-t>", function() AichatGenerateGitCommitMessage() end)
 
 -- close  terminal with <ESC>
-vim.api.nvim_set_keymap(  't'  ,  '<ESC>'  ,  '<C-\\><C-n>'  ,  {noremap = true}  )
-vim.api.nvim_set_keymap(  'n'  ,  '<leader>ot'  ,  ':sp | terminal<CR>:set nobuflisted<CR>'  ,  {noremap = true}  )
-vim.api.nvim_set_keymap(  'n'  ,  '<leader>ovt'  ,  ':vsp | terminal<CR>:set nobuflisted<CR>'  ,  {noremap = true}  )
+vim.api.nvim_set_keymap('t', '<ESC>', '<C-\\><C-n>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>ot', ':sp | terminal<CR>:set nobuflisted<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>ovt', ':vsp | terminal<CR>:set nobuflisted<CR>', { noremap = true })
 
 -- move lines up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -80,6 +89,7 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 
+
 -- setup global function AibotGetText
 _G.AichatGenerateGitCommitMessage = function()
 	local diff = vim.fn.system("git --no-pager diff -U6 --cached")
@@ -93,9 +103,9 @@ _G.AichatGenerateGitCommitMessage = function()
 		return
 	end
 
-	local branch = vim.fn.system({"git", "rev-parse", "--abbrev-ref", "HEAD"})
+	local branch = vim.fn.system({ "git", "rev-parse", "--abbrev-ref", "HEAD" })
 
-	local recentCommits = vim.fn.system({"git", "log", "-n 10", "--pretty=format:'%h %s'"})
+	local recentCommits = vim.fn.system({ "git", "log", "-n 10", "--pretty=format:'%h %s'" })
 	local prompt = [[
 Please suggest a single commit messages, given the following diff:
 
@@ -216,6 +226,10 @@ end
 -- set file type for Dockerfile-*
 vim.api.nvim_command("au BufNewFile,BufRead Dockerfile* set filetype=dockerfile")
 
+-- TODO: change to "razor" when testing rzls
+vim.api.nvim_command("au BufNewFile,BufRead *.cshtml set filetype=html")
+vim.api.nvim_command("au BufNewFile,BufRead *.razor set filetype=html")
+
 require("config.lazy")
 require("config.rose-pine")
 require("config.telescope")
@@ -228,4 +242,3 @@ vim.opt.shellslash = false
 vim.defer_fn(function()
 	vim.opt.shellslash = false
 end, 5000)
-
