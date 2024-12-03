@@ -1,11 +1,47 @@
 return {
 	"mfussenegger/nvim-dap",
+	lazy = true,
 	dependencies = {
 		"rcarriga/nvim-dap-ui",
 		"theHamsta/nvim-dap-virtual-text",
 		"williamboman/mason.nvim",
 		"jay-babu/mason-nvim-dap.nvim",
 	},
+	keys = function(_, keys)
+		local dap = require 'dap'
+		local dapui = require 'dapui'
+		return {
+			-- Basic debugging keymaps, feel free to change to your liking!
+			{ '<F5>',      dap.continue,          desc = 'Debug: Start/Continue' },
+			{ '<F11>',     dap.step_into,         desc = 'Debug: Step Into' },
+			{ '<F10>',     dap.step_over,         desc = 'Debug: Step Over' },
+			{ '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+			{
+				'<leader>B',
+				function()
+					dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+				end,
+				desc = 'Debug: Set Breakpoint',
+			},
+			-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
+			{ '<F7>',       dapui.toggle,          desc = 'Debug: See last session result.' },
+
+			{ '<leader>db', dap.toggle_breakpoint, desc = 'DAP: Toggle breakpoint' },
+			{ '<leader>do', dap.step_over,         desc = 'DAP: Step over' },
+			{ '<leader>di', dap.step_into,         desc = 'DAP: Step into' },
+			{ '<leader>dc', dap.continue,          desc = 'DAP: Continue' },
+			{ '<leader>ds', dap.terminate,         desc = 'DAP: Stop' },
+			{ '<leader>dr', dap.run_to_cursor,     desc = 'DAP: Run to cursor' },
+			{
+				'<leader>da',
+				function()
+					require('telescope').extensions.dap.commands()
+				end,
+				desc = 'DAP: Commands'
+			},
+			unpack(keys),
+		}
+	end,
 	config = function()
 		require("mason-nvim-dap").setup({
 			ensure_installed = { "coreclr" }
@@ -88,17 +124,6 @@ return {
 		vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
 		vim.fn.sign_define('DapLogPoint', { text = '📝', texthl = '', linehl = '', numhl = '' })
 		vim.fn.sign_define('DapStopped', { text = '', texthl = '', linehl = '', numhl = '' })
-
-
-		vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP: Toggle breakpoint" })
-		vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "DAP: Step over" })
-		vim.keymap.set("n", "<leader>di", dap.step_into, { desc = "DAP: Step into" })
-		vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP: Continue" })
-		vim.keymap.set("n", "<leader>ds", dap.terminate, { desc = "DAP: Stop" })
-		vim.keymap.set("n", "<leader>dr", dap.run_to_cursor, { desc = "DAP: Run to cursor" })
-		vim.keymap.set("n", "<leader>da", function()
-			require('telescope').extensions.dap.commands()
-		end, { desc = "DAP: Commands" })
 	end
 
 }

@@ -10,28 +10,28 @@
     "border_offset": 1,
     "transparency": true,
     "transparency_alpha": 240,
-	"animation": {
-		"enabled": true
-	},
+    "animation": {
+        "enabled": true
+    },
     "border_colours": {
-      "single": "#42a5f5",
-      "stack": "#00a542",
-      "monocle": "#ff3399",
-      "unfocused": "#808080"
-    },"app_specific_configuration_path": "~\\applications.yaml",
+        "single": "#42a5f5",
+        "stack": "#00a542",
+        "monocle": "#ff3399",
+        "unfocused": "#808080"
+    },
+    "app_specific_configuration_path": "~\\applications.yaml",
     "monitors": [
-      {
-        "workspaces": [
-          {
-            "name": "I",
-            "layout": "BSP"
-          },
-          {
-            "name": "II",
-            "layout": "VerticalStack"
-          }
-        ]
-      }
+        {
+            "workspaces": [
+                {
+                    "name": "I",
+                    "layout": "BSP"
+                },
+                {
+                    "name": "II",
+                    "layout": "VerticalStack"
+                }
+            ]
+        }
     ]
-  }
-  
+}

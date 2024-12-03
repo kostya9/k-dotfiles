@@ -6,6 +6,11 @@ return {
 	opts = {
 		-- add any opts here
 		provider = "claude",
+		windows = {
+			ask = {
+				floating = true
+			}
+		}
 	},
 	build = "pwsh -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
 	dependencies = {
