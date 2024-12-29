@@ -8,9 +8,13 @@ local function custom_on_attach(bufnr)
 	-- default mappings
 	api.config.mappings.default_on_attach(bufnr)
 
+	local preview = require('nvim-tree-preview')
+
 	-- custom mappings
 	vim.keymap.set('n', 'gp', api.node.navigate.diagnostics.prev_recursive, opts('Prev diagnostic'))
 	vim.keymap.set('n', 'ge', api.node.navigate.diagnostics.next_recursive, opts('Next diagnostic'))
+	vim.keymap.set('n', 'K', preview.node_under_cursor, opts 'Preview (Watch)')
+	vim.keymap.set('n', '<Esc>', preview.unwatch, opts 'Close Preview/Unwatch')
 end
 
 return {
@@ -19,6 +23,11 @@ return {
 	lazy = false,
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
+		'b0o/nvim-tree-preview.lua'
+	},
+	keys = {
+		{ "<leader>nt", ":NvimTreeToggle<CR>",   { noremap = true, silent = true } },
+		{ "<leader>nf", ":NvimTreeFindFile<CR>", { noremap = true, silent = true } },
 	},
 	opts = {
 		hijack_unnamed_buffer_when_opening = false,
@@ -31,6 +40,11 @@ return {
 			enable = true,
 			update_root = {
 				enable = false,
+			}
+		},
+		actions = {
+			open_file = {
+				quit_on_open = true,
 			}
 		},
 		diagnostics = {
