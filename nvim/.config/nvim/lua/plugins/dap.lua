@@ -8,30 +8,28 @@ return {
 		"jay-babu/mason-nvim-dap.nvim",
 	},
 	keys = function(_, keys)
-		local dap = require 'dap'
-		local dapui = require 'dapui'
 		return {
 			-- Basic debugging keymaps, feel free to change to your liking!
-			{ '<F5>',      dap.continue,          desc = 'Debug: Start/Continue' },
-			{ '<F11>',     dap.step_into,         desc = 'Debug: Step Into' },
-			{ '<F10>',     dap.step_over,         desc = 'Debug: Step Over' },
-			{ '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+			{ '<F5>',      function() require('dap').continue() end,          desc = 'Debug: Start/Continue' },
+			{ '<F11>',     function() require('dap').step_into() end,         desc = 'Debug: Step Into' },
+			{ '<F10>',     function() require('dap').step_over() end,         desc = 'Debug: Step Over' },
+			{ '<leader>b', function() require('dap').toggle_breakpoint() end, desc = 'Debug: Toggle Breakpoint' },
 			{
 				'<leader>B',
 				function()
-					dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+					require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
 				end,
 				desc = 'Debug: Set Breakpoint',
 			},
 			-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-			{ '<F7>',       dapui.toggle,          desc = 'Debug: See last session result.' },
+			{ '<F7>',       function() require('dapui').toggle() end,          desc = 'Debug: See last session result.' },
 
-			{ '<leader>db', dap.toggle_breakpoint, desc = 'DAP: Toggle breakpoint' },
-			{ '<leader>do', dap.step_over,         desc = 'DAP: Step over' },
-			{ '<leader>di', dap.step_into,         desc = 'DAP: Step into' },
-			{ '<leader>dc', dap.continue,          desc = 'DAP: Continue' },
-			{ '<leader>ds', dap.terminate,         desc = 'DAP: Stop' },
-			{ '<leader>dr', dap.run_to_cursor,     desc = 'DAP: Run to cursor' },
+			{ '<leader>db', function() require('dap').toggle_breakpoint() end, desc = 'DAP: Toggle breakpoint' },
+			{ '<leader>do', function() require('dap').step_over() end,         desc = 'DAP: Step over' },
+			{ '<leader>di', function() require('dap').step_into() end,         desc = 'DAP: Step into' },
+			{ '<leader>dc', function() require('dap').continue() end,          desc = 'DAP: Continue' },
+			{ '<leader>ds', function() require('dap').terminate() end,         desc = 'DAP: Stop' },
+			{ '<leader>dr', function() require('dap').run_to_cursor() end,     desc = 'DAP: Run to cursor' },
 			{
 				'<leader>da',
 				function()
@@ -124,6 +122,10 @@ return {
 		vim.fn.sign_define('DapBreakpoint', { text = '🛑', texthl = '', linehl = '', numhl = '' })
 		vim.fn.sign_define('DapLogPoint', { text = '📝', texthl = '', linehl = '', numhl = '' })
 		vim.fn.sign_define('DapStopped', { text = '', texthl = '', linehl = '', numhl = '' })
+
+
+
+		require('telescope').load_extension('dap')
 	end
 
 }

@@ -234,7 +234,6 @@ require("config.rose-pine")
 require("config.telescope")
 require("config.barbar")
 require("config.nvim-tree")
-require("config.luasnip")
 
 -- for some reason shellslash is being reset to true
 vim.opt.shellslash = false

@@ -28,13 +28,8 @@ return {
 	{
 		'hrsh7th/nvim-cmp',
 		event = 'InsertEnter',
-		dependencies = {
-			{ 'L3MON4D3/LuaSnip' },
-			"saadparwaiz1/cmp_luasnip",
-		},
 		config = function()
 			local cmp = require('cmp')
-			local luasnip = require('luasnip')
 
 			local cmp_select = { behavior = cmp.SelectBehavior.Select }
 			cmp.setup({
@@ -44,9 +39,9 @@ return {
 						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
 					},
 					{ name = 'nvim_lsp' },
-					{ name = 'luasnip' },
 					{ name = 'buffer' },
 					{ name = 'path' },
+				    { name = 'render-markdown' },
 				},
 				mapping = cmp.mapping.preset.insert({
 					['<C-Space>'] = cmp.mapping.complete(),
