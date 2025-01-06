@@ -19,7 +19,7 @@
         "monocle": "#ff3399",
         "unfocused": "#808080"
     },
-    "app_specific_configuration_path": "~\\applications.yaml",
+    "app_specific_configuration_path": "~\\applications.json",
     "monitors": [
         {
             "workspaces": [

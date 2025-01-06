@@ -20,8 +20,8 @@ New-Item -ItemType SymbolicLink -Target $whkdrcLocation -Path "~/.config/whkdrc"
 
 $komorebiLocation = Join-Path $currentDirectory "komorebi/komorebi.json"
 Copy-Item -Path $komorebiLocation -Destination "~/komorebi.json"
-$komorebiApplicationsLocation = Join-Path $currentDirectory "komorebi/applications.yaml"
-Copy-Item -Path $komorebiApplicationsLocation -Destination "~/applications.yaml"
+$komorebiApplicationsLocation = Join-Path $currentDirectory "komorebi/applications.json"
+Copy-Item -Path $komorebiApplicationsLocation -Destination "~/applications.json"
 
 $komorebiBarLocation = Join-Path $currentDirectory "komorebi/komorebi.bar.json"
 New-Item -ItemType SymbolicLink -Target $komorebiBarLocation -Path "~/komorebi.bar.json" | Out-Null

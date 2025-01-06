@@ -4,7 +4,6 @@ vim.loader.enable()
 vim.opt.wildignore:append(
 "*/bin/*,*/obj/*,*/node_modules/*,*/dist/*,*/target/*,*/.git/*,*/.svn/*,*/.hg/*,*/.DS_Store/*,*/.vscode/*,*/.cache/*,*/.idea/*,*/.gradle/*,*/.settings/*,*/.classpath/*,*/.project/*,*/.factorypath/*,*/.metadata/*,*/.recommenders/*,*/.history/*,*/.log")
 
-
 vim.api.nvim_set_option("clipboard", "unnamed")
 
 vim.opt.relativenumber = true
@@ -242,3 +241,42 @@ vim.opt.shellslash = false
 vim.defer_fn(function()
 	vim.opt.shellslash = false
 end, 5000)
+
+
+
+vim.api.nvim_create_user_command('DiagTS', function()
+    local buf = vim.api.nvim_get_current_buf()
+    local ft = vim.bo[buf].filetype
+    print("Current filetype: " .. ft)
+    
+    local parser = vim.treesitter.get_parser(buf)
+    if not parser then
+        print("No parser found")
+        return
+    end
+    
+    print("Active parsers:")
+    print("  Main: " .. parser:lang())
+    
+    local child_parsers = parser:children()
+    if next(child_parsers) then
+        print("  Injected languages:")
+        for lang, _ in pairs(child_parsers) do
+            print("    - " .. lang)
+        end
+    else
+        print("  No injected languages found")
+    end
+    
+    local query = vim.treesitter.query.get(ft, 'injections')
+    if not query then
+        print("No injection query found for " .. ft)
+    else
+        print("Injection query found")
+        local matches = 0
+        for _ in query:iter_captures(parser:parse()[1]:root(), buf) do
+            matches = matches + 1
+        end
+        print("Found " .. matches .. " injection matches")
+    end
+end, {})

@@ -25,14 +25,17 @@ return {
 			event = "InsertEnter",
 			config = function()
 				require("copilot").setup({
+					offset_encoding = "utf-8",
 					suggestion = {
 						auto_trigger = true,
 
 					},
 					filetypes = {
-						markdown = true
-					}
+						markdown = true,
+						yaml = true
+					},
 				})
+				-- Disale textDocument/semanticTokens/full for copilot
 			end
 		}, -- for providers='copilot'
 		{

@@ -4,6 +4,8 @@ local function semantic_tokens(client)
 	if client.is_hacked then
 		return
 	end
+
+
 	client.is_hacked = true
 
 	-- let the runtime know the server can do semanticTokens/full now
@@ -42,15 +44,26 @@ local function semantic_tokens(client)
 end
 
 local lsp_attach = function(client, bufnr)
-     semantic_tokens(client)
+	if client.name == 'omnisharp' then
+		-- require('otter').activate({ 'html', 'css', 'javascript', 'typescript', 'csharp' })
+	end
+
+	-- semantic_tokens(client)
 	local opts = { buffer = bufnr }
 
+	if client.name == 'omnisharp' then
+		vim.keymap.set('n', 'gd', '<cmd>lua require(\'omnisharp_extended\').lsp_definition()<cr>', opts)
+		vim.keymap.set('n', 'gi', '<cmd>lua require(\'omnisharp_extended\').lsp_implementation()<cr>', opts)
+		vim.keymap.set('n', 'gu', '<cmd>lua require(\'omnisharp_extended\').telescope_lsp_references({ include_declaration = false })<cr>', opts)
+	else
+		vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+		vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+	end
+
 	vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-	vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
 	vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
 	vim.keymap.set('n', 'ge', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
 	vim.keymap.set('n', 'gp', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
-	vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
 	vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
 	vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
 	vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>',
@@ -61,6 +74,8 @@ local lsp_attach = function(client, bufnr)
 	end, { silent = true, buffer = bufnr })
 	vim.keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 	vim.keymap.set('n', 'L', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+	vim.keymap.set({ 'n', 'v' }, '<C-a>', vim.lsp.buf.code_action,
+		{ buffer = bufnr, desc = "Code actions" })
 end
 
 
