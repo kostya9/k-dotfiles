@@ -1,3 +1,9 @@
+local build_cmd = "make";
+
+if vim.loop.os_uname().sysname == "Windows_NT" then
+		build_cmd =  "pwsh -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false";
+end
+
 return {
 	"yetone/avante.nvim",
 	event = "VeryLazy",
@@ -13,7 +19,7 @@ return {
 			}
 		}
 	},
-	build = "pwsh -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
+	build = build_cmd,
 	dependencies = {
 		"stevearc/dressing.nvim",
 		"nvim-lua/plenary.nvim",

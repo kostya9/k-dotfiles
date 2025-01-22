@@ -25,13 +25,15 @@ vim.g.loaded_netrwPlugin = 1
 
 vim.opt.splitright = true
 
-vim.opt.shell = "pwsh"
-vim.o.shellcmdflag =
-"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-vim.o.shellquote = ""
-vim.o.shellxquote = ""
+if vim.loop.os_uname().sysname == "Windows_NT" then
+		vim.opt.shell = "pwsh"
+		vim.o.shellcmdflag =
+		"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+		vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+		vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+		vim.o.shellquote = ""
+		vim.o.shellxquote = ""
+end
 
 vim.opt.pumblend = 0
 
@@ -236,10 +238,13 @@ require("config.barbar")
 require("config.nvim-tree")
 
 -- for some reason shellslash is being reset to true
-vim.opt.shellslash = false
-vim.defer_fn(function()
-	vim.opt.shellslash = false
-end, 5000)
+
+if vim.loop.os_uname().sysname == "Windows_NT" then
+		vim.opt.shellslash = false
+		vim.defer_fn(function()
+			vim.opt.shellslash = false
+		end, 5000)
+end
 
 
 
