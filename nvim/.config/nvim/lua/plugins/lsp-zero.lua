@@ -80,7 +80,7 @@ return {
 		config = function()
 			require('mason-tool-installer').setup({
 				ensure_installed = {
-					"omnisharp",
+					-- "omnisharp",
 					-- "csharp-language-server",
 					"powershell_es",
 					"lua_ls",
@@ -113,7 +113,6 @@ return {
 				}
 			},
 			{ 'williamboman/mason-lspconfig.nvim' },
-			{ 'Hoffs/omnisharp-extended-lsp.nvim' },
 			{ 'ckipp01/stylua-nvim' },
 			{ 'Decodetalkers/csharpls-extended-lsp.nvim' },
 			--			{ 'jlcrochet/vim-razor' },
@@ -241,17 +240,6 @@ return {
 									}
 								}
 							},
-
-							handlers = {
-								["textDocument/definition"] = require(
-								'omnisharp_extended').definition_handler,
-								["textDocument/typeDefinition"] = require(
-								'omnisharp_extended').type_definition_handler,
-								["textDocument/references"] = require(
-								'omnisharp_extended').references_handler,
-								["textDocument/implementation"] = require(
-								'omnisharp_extended').implementation_handler,
-							},
 						})
 					end,
 					csharp_ls = function()
@@ -292,18 +280,6 @@ return {
 						return string.gsub(str, "%s*[- ]%s*", "_")
 					end
 
-					if client.name == 'omnisharp' then
-						local tokenModifiers = client.server_capabilities.semanticTokensProvider
-						    .legend.tokenModifiers
-						for i, v in ipairs(tokenModifiers) do
-							tokenModifiers[i] = toSnakeCase(v)
-						end
-						local tokenTypes = client.server_capabilities.semanticTokensProvider
-						    .legend.tokenTypes
-						for i, v in ipairs(tokenTypes) do
-							tokenTypes[i] = toSnakeCase(v)
-						end
-					end
 				end,
 			})
 		end

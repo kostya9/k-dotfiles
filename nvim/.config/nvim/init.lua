@@ -226,8 +226,8 @@ end
 vim.api.nvim_command("au BufNewFile,BufRead Dockerfile* set filetype=dockerfile")
 
 -- TODO: change to "razor" when testing rzls
-vim.api.nvim_command("au BufNewFile,BufRead *.cshtml set filetype=html")
-vim.api.nvim_command("au BufNewFile,BufRead *.razor set filetype=html")
+vim.api.nvim_command("au BufNewFile,BufRead *.cshtml set filetype=razor")
+vim.api.nvim_command("au BufNewFile,BufRead *.razor set filetype=razor")
 
 require("config.lazy")
 require("config.rose-pine")

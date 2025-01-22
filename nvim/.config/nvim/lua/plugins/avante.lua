@@ -3,7 +3,7 @@ return {
 	event = "VeryLazy",
 	lazy = true,
 	version = false, -- set this if you want to always pull the latest change
-	enable = false,
+	enabled = true,
 	opts = {
 		-- add any opts here
 		provider = "claude",
