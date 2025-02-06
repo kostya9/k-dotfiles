@@ -2,12 +2,12 @@
 set visualbell
 set noerrorbells 
 
-set relativenumber = true
-set nu = true
+set relativenumber
+set nu
 
 set scrolloff=8 " keep some lines before and after the cursor visible
 
-set signcolumn = yes
+set signcolumn=yes
 set isfname+=@-@
 
 " integrate with system clipboard
@@ -73,6 +73,6 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " do not overwrite copy register on paste
-set ReplaceWithRegister
+" set ReplaceWithRegister
 xmap p gr
 

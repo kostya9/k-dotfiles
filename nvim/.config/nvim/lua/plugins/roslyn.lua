@@ -33,9 +33,9 @@ return {
 
 				-- monkey patch the request proxy
 				local request_inner = client.request
-				function client:request(method, params, handler, req_bufnr)
+				function client.request(method, params, handler, req_bufnr)
 					if method ~= vim.lsp.protocol.Methods.textDocument_semanticTokens_full then
-						return request_inner(self, method, params, handler)
+						return request_inner(method, params, handler)
 					end
 
 					local target_bufnr = vim.uri_to_bufnr(params.textDocument.uri)
@@ -47,7 +47,7 @@ return {
 						true
 					)[1]
 
-					return request_inner(self, "textDocument/semanticTokens/range", {
+					local resp = request_inner("textDocument/semanticTokens/range", {
 						textDocument = params.textDocument,
 						range = {
 							["start"] = {
@@ -60,6 +60,7 @@ return {
 							},
 						},
 					}, handler, req_bufnr)
+					return resp
 				end
 			end
 
@@ -94,12 +95,12 @@ return {
 			local config = {
 				args = args,
 				config = {
-				    filetypes = { 'razor' },
+					filetypes = { 'razor', 'cs' },
 					handlers = require "rzls.roslyn_handlers",
 					on_attach = function(client, bufnr)
-						require "lspattach" (client, bufnr)
-
 						monkey_patch_semantic_tokens(client)
+						require "lspattach" (client, bufnr)
+						vim.notify("Razor LSP attached", "info")
 					end,
 
 					settings = {
