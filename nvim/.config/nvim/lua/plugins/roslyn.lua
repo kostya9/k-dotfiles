@@ -89,6 +89,7 @@ return {
 						"Microsoft.NET.Sdk.Razor.DesignTime.targets"
 					)
 				)
+				table.insert(args, "--stdio")
 			end
 
 			--- @type RoslynNvimConfig
@@ -122,9 +123,19 @@ return {
 						['csharp|code_lens'] = {
 							dotnet_enable_references_code_lens = true,
 						},
+						["csharp|background_analysis"] =
+						{
+							background_analysis =
+							{
+								dotnet_analyzer_diagnostics_scope =
+								"fullSolution",
+								dotnet_compiler_diagnostics_scope =
+								"fullSolution",
+							}
+						}
 					},
 				},
-				filewatching = false,
+				filewatching = 'auto',
 			}
 
 			local roslyn_package = mason_registry.get_package "roslyn"
@@ -140,6 +151,12 @@ return {
 			end
 
 			require("roslyn").setup(config)
+			vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "LspAttach" }, {
+				pattern = "*.cs",
+				callback = function()
+					vim.lsp.codelens.refresh({ bufnr = 0 })
+				end,
+			})
 		end,
 	},
 }

@@ -44,17 +44,20 @@ local function semantic_tokens(client)
 end
 
 local lsp_attach = function(client, bufnr)
-	if client.name == 'omnisharp' then
-		-- require('otter').activate({ 'html', 'css', 'javascript', 'typescript', 'csharp' })
+	if client.name == 'roslyn' then
+		local otter = require('otter')
+		if not otter.is_active then
+			otter.activate({ 'html', 'css', 'javascript', 'typescript', 'razor' })
+		end
 	end
 
 	-- semantic_tokens(client)
 	local opts = { buffer = bufnr }
 
 	if client.name == 'omnisharp' then
-		vim.keymap.set('n', 'gd', '<cmd>lua require(\'omnisharp_extended\').lsp_definition()<cr>', opts)
-		vim.keymap.set('n', 'gi', '<cmd>lua require(\'omnisharp_extended\').lsp_implementation()<cr>', opts)
-		vim.keymap.set('n', 'gu', '<cmd>lua require(\'omnisharp_extended\').telescope_lsp_references({ include_declaration = false })<cr>', opts)
+		-- vim.keymap.set('n', 'gd', '<cmd>lua require(\'omnisharp_extended\').lsp_definition()<cr>', opts)
+		-- vim.keymap.set('n', 'gi', '<cmd>lua require(\'omnisharp_extended\').lsp_implementation()<cr>', opts)
+		-- vim.keymap.set('n', 'gu', '<cmd>lua require(\'omnisharp_extended\').telescope_lsp_references({ include_declaration = false })<cr>', opts)
 	else
 		vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
 		vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
@@ -75,6 +78,8 @@ local lsp_attach = function(client, bufnr)
 	vim.keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 	vim.keymap.set('n', 'L', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
 	vim.keymap.set({ 'n', 'v' }, '<C-a>', vim.lsp.buf.code_action,
+		{ buffer = bufnr, desc = "Code actions" })
+	vim.keymap.set({ 'n', 'v' }, '<C-A>', vim.lsp.buf.code_action,
 		{ buffer = bufnr, desc = "Code actions" })
 end
 

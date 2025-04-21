@@ -1,7 +1,7 @@
 local build_cmd = "make";
 
 if vim.loop.os_uname().sysname == "Windows_NT" then
-		build_cmd =  "pwsh -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false";
+	build_cmd = "pwsh -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false";
 end
 
 return {
@@ -13,6 +13,17 @@ return {
 	opts = {
 		-- add any opts here
 		provider = "claude",
+		claude = {
+			max_tokens = 32000,
+			thinking = {
+				type = "enabled",
+				budget_tokens = 4096,
+			},
+			temperature = 1,
+		},
+		gemini = {
+			model = 'gemini-2.0-flash'
+		},
 		windows = {
 			ask = {
 				floating = true

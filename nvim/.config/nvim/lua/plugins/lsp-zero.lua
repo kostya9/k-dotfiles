@@ -41,7 +41,7 @@ return {
 					{ name = 'nvim_lsp' },
 					{ name = 'buffer' },
 					{ name = 'path' },
-				    { name = 'render-markdown' },
+					{ name = 'render-markdown' },
 				},
 				mapping = cmp.mapping.preset.insert({
 					['<C-Space>'] = cmp.mapping.complete(),
@@ -95,7 +95,13 @@ return {
 			})
 		end
 	},
-
+	{
+		'jmbuhr/otter.nvim',
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter',
+		},
+		opts = {},
+	},
 	-- LSP
 	{
 		'neovim/nvim-lspconfig',
@@ -279,7 +285,6 @@ return {
 					local function toSnakeCase(str)
 						return string.gsub(str, "%s*[- ]%s*", "_")
 					end
-
 				end,
 			})
 		end

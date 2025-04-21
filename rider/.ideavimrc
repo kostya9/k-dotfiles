@@ -43,6 +43,8 @@ nnoremap ge :action ShowErrorDescription<CR>
 nnoremap <c-o> :action Back<cr>
 nnoremap <c-i> :action Forward<cr>
 nnoremap <K> :action QuickJavaDoc<cr>
+noremap <L> :action ShowErrorDescription<cr>
+
 
 nmap <leader>l :action NextTab<CR>
 nmap <leader>h :action PreviousTab<CR>
@@ -56,6 +58,7 @@ nmap <leader>rem :action ExtractMethod<CR>
 nmap <leader>roi :action OptimizeImports<CR>
 nmap <leader>f :action ReformatCode<CR>
 nmap <leader>rm :action Move<CR>
+nmap <leader>pf :action SearchEverywhere<CR>
 
 nmap > :action MoveElementRight<CR>
 nmap < :action MoveElementLeft<CR>

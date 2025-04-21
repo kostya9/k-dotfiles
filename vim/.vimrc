@@ -1,3 +1,5 @@
+let mapleader = " "
+
 " Fix annoying error bells
 set visualbell
 set noerrorbells 
@@ -30,31 +32,27 @@ set wrapscan
 " keep x lines of command line history
 set history=10000                 
 
-nnoremap <c-p> :action Find
-
-nnoremap gd :action GotoDeclaration<CR>
-nnoremap gi :action GotoImplementation<CR>
-nnoremap gu :action ShowUsages<CR>
-
-nnoremap <c-o> :action Back<cr>
-nnoremap <c-i> :action Forward<cr>
-nnoremap <K> :action QuickJavaDoc<cr>
-
-nmap <leader>l :action NextTab<CR>
-nmap <leader>h :action PreviousTab<CR>
-
-nmap <C-p> :action ParameterInfo<CR>
-imap <C-p> <C-o>:action ParameterInfo<CR>
-
-nmap <leader>rr :action RenameElement<CR>
-vmap <leader>rem :action ExtractMethod<CR>
-nmap <leader>rem :action ExtractMethod<CR>
-nmap <leader>roi :action OptimizeImports<CR>
-nmap <leader>f :action ReformatCode<CR>
-nmap <leader>rm :action Move<CR>
-
-nmap > :action MoveElementRight<CR>
-nmap < :action MoveElementLeft<CR>
+if has('ide')
+    nnoremap <c-p> :action Find
+    nnoremap gd :action GotoDeclaration<CR>
+    nnoremap gi :action GotoImplementation<CR>
+    nnoremap gu :action ShowUsages<CR>
+    nnoremap <c-o> :action Back<cr>
+    nnoremap <c-i> :action Forward<cr>
+    nnoremap <K> :action QuickJavaDoc<cr>
+    nmap <leader>l :action NextTab<CR>
+    nmap <leader>h :action PreviousTab<CR>
+    nmap <C-p> :action ParameterInfo<CR>
+    imap <C-p> <C-o>:action ParameterInfo<CR>
+    nmap <leader>rr :action RenameElement<CR>
+    vmap <leader>rem :action ExtractMethod<CR>
+    nmap <leader>rem :action ExtractMethod<CR>
+    nmap <leader>roi :action OptimizeImports<CR>
+    nmap <leader>f :action ReformatCode<CR>
+    nmap <leader>rm :action Move<CR>
+    nmap > :action MoveElementRight<CR>
+    nmap < :action MoveElementLeft<CR>
+endif
 
 " don't lose selection when indenting
 vnoremap < <gv

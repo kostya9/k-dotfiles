@@ -1,0 +1,68 @@
+[
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+w",
+        "command": "-workbench.action.quickSwitchWindow"
+    },
+    {
+        "key": "ctrl+w h",
+        "command": "workbench.view.explorer",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+w l",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "explorerViewletFocus"
+    },
+    {
+        "key": "a",
+        "command": "explorer.newFile",
+        "when": "explorerViewletFocus && !inputFocus"
+    },
+    {
+        "key": "enter",
+        "command": "list.select",
+        "when": "explorerViewletFocus"
+    },
+    {
+        "key": "shift+k",
+        "command": "editor.action.showHover",
+        "when": "editorTextFocus && vim.mode != 'Insert'"
+    },
+    {
+        "key": "ctrl+.",
+        "command": "editor.action.quickFix",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+l",
+        "command": "editor.action.showHover",
+        "when": "editorTextFocus && vim.mode != 'Insert'"
+    },
+    {
+        "key": "g u",
+        "command": "editor.action.referenceSearch.trigger",
+        "when": "editorTextFocus && vim.mode != 'Insert'"
+    },
+    {
+        "key": "g d",
+        "command": "editor.action.goToDeclaration",
+        "when": "editorTextFocus && vim.mode != 'Insert'"
+    },
+    {
+        "key": "g i",
+        "command": "editor.action.goToImplementation",
+        "when": "editorTextFocus && vim.mode != 'Insert'"
+    },
+    {
+        "key": "cmd+i",
+        "command": "composerMode.agent"
+    }
+]

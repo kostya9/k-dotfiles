@@ -2,7 +2,7 @@ vim.loader.enable()
 
 -- Disable watching of bin and obj folders
 vim.opt.wildignore:append(
-"*/bin/*,*/obj/*,*/node_modules/*,*/dist/*,*/target/*,*/.git/*,*/.svn/*,*/.hg/*,*/.DS_Store/*,*/.vscode/*,*/.cache/*,*/.idea/*,*/.gradle/*,*/.settings/*,*/.classpath/*,*/.project/*,*/.factorypath/*,*/.metadata/*,*/.recommenders/*,*/.history/*,*/.log")
+	"*/bin/*,*/obj/*,*/node_modules/*,*/dist/*,*/target/*,*/.git/*,*/.svn/*,*/.hg/*,*/.DS_Store/*,*/.vscode/*,*/.cache/*,*/.idea/*,*/.gradle/*,*/.settings/*,*/.classpath/*,*/.project/*,*/.factorypath/*,*/.metadata/*,*/.recommenders/*,*/.history/*,*/.log")
 
 vim.api.nvim_set_option("clipboard", "unnamed")
 
@@ -26,13 +26,13 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.splitright = true
 
 if vim.loop.os_uname().sysname == "Windows_NT" then
-		vim.opt.shell = "pwsh"
-		vim.o.shellcmdflag =
-		"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-		vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-		vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-		vim.o.shellquote = ""
-		vim.o.shellxquote = ""
+	vim.opt.shell = "pwsh"
+	vim.o.shellcmdflag =
+	"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+	vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+	vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+	vim.o.shellquote = ""
+	vim.o.shellxquote = ""
 end
 
 vim.opt.pumblend = 0
@@ -88,6 +88,11 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 -- Navigate to item in location list
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
+-- Make 'c' command not yank to default register by using black hole register
+vim.keymap.set({"n", "v"}, "c", '"_c', { noremap = true })
+vim.keymap.set({"n", "v"}, "C", '"_C', { noremap = true })
+
 
 
 
@@ -240,47 +245,47 @@ require("config.nvim-tree")
 -- for some reason shellslash is being reset to true
 
 if vim.loop.os_uname().sysname == "Windows_NT" then
+	vim.opt.shellslash = false
+	vim.defer_fn(function()
 		vim.opt.shellslash = false
-		vim.defer_fn(function()
-			vim.opt.shellslash = false
-		end, 5000)
+	end, 5000)
 end
 
 
 
 vim.api.nvim_create_user_command('DiagTS', function()
-    local buf = vim.api.nvim_get_current_buf()
-    local ft = vim.bo[buf].filetype
-    print("Current filetype: " .. ft)
-    
-    local parser = vim.treesitter.get_parser(buf)
-    if not parser then
-        print("No parser found")
-        return
-    end
-    
-    print("Active parsers:")
-    print("  Main: " .. parser:lang())
-    
-    local child_parsers = parser:children()
-    if next(child_parsers) then
-        print("  Injected languages:")
-        for lang, _ in pairs(child_parsers) do
-            print("    - " .. lang)
-        end
-    else
-        print("  No injected languages found")
-    end
-    
-    local query = vim.treesitter.query.get(ft, 'injections')
-    if not query then
-        print("No injection query found for " .. ft)
-    else
-        print("Injection query found")
-        local matches = 0
-        for _ in query:iter_captures(parser:parse()[1]:root(), buf) do
-            matches = matches + 1
-        end
-        print("Found " .. matches .. " injection matches")
-    end
+	local buf = vim.api.nvim_get_current_buf()
+	local ft = vim.bo[buf].filetype
+	print("Current filetype: " .. ft)
+
+	local parser = vim.treesitter.get_parser(buf)
+	if not parser then
+		print("No parser found")
+		return
+	end
+
+	print("Active parsers:")
+	print("  Main: " .. parser:lang())
+
+	local child_parsers = parser:children()
+	if next(child_parsers) then
+		print("  Injected languages:")
+		for lang, _ in pairs(child_parsers) do
+			print("    - " .. lang)
+		end
+	else
+		print("  No injected languages found")
+	end
+
+	local query = vim.treesitter.query.get(ft, 'injections')
+	if not query then
+		print("No injection query found for " .. ft)
+	else
+		print("Injection query found")
+		local matches = 0
+		for _ in query:iter_captures(parser:parse()[1]:root(), buf) do
+			matches = matches + 1
+		end
+		print("Found " .. matches .. " injection matches")
+	end
 end, {})
