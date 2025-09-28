@@ -46,3 +46,12 @@ ln -sf "$aichatDirectory" "$HOME/aichat"
 
 # For Windows Terminal settings, there's no direct equivalent on macOS, so we skip this step
 
+# Create symbolic links for Cursor settings
+cursorFolderLocation="$currentDirectory/cursor"
+keybindingsLocation="$cursorFolderLocation/keybindings.json"
+settingsLocation="$cursorFolderLocation/settings.json"
+cursorFolderDestination="$HOME/Library/Application Support/Cursor/User"
+mkdir -p "$cursorFolderDestination"
+ln -sf "$keybindingsLocation" "$cursorFolderDestination/keybindings.json"
+ln -sf "$settingsLocation" "$cursorFolderDestination/settings.json"
+

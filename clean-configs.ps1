@@ -44,3 +44,13 @@ if (Test-Path $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe
 {
 	Remove-Item $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json -Recurse -Force
 }
+
+if (Test-Path $env:APPDATA\Cursor\User\keybindings.json)
+{
+	Remove-Item $env:APPDATA\Cursor\User\keybindings.json -Recurse -Force
+}
+
+if (Test-Path $env:APPDATA\Cursor\User\settings.json)
+{
+	Remove-Item $env:APPDATA\Cursor\User\settings.json -Recurse -Force
+}

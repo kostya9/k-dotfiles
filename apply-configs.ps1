@@ -34,3 +34,11 @@ New-Item -ItemType SymbolicLink -Target $aichatDirectory -Path "$env:APPDATA/aic
 
 $windowsTerminalSettingsLocation = Join-Path $currentDirectory "windows-terminal/settings.json"
 Copy-Item -Path $windowsTerminalSettingsLocation -Destination "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" -Force
+
+$cursorFolderLocation = Join-Path $currentDirectory "cursor"
+$keybindingsLocation = Join-Path $cursorFolderLocation "keybindings.json"
+$settingsLocation = Join-Path $cursorFolderLocation "settings.json"
+$cursorFolderDestination = Join-Path $env:APPDATA "Cursor/User"
+New-Item -ItemType Directory -Force -Path "$env:APPDATA/Cursor/User" | Out-Null
+New-Item -ItemType SymbolicLink -Target $keybindingsLocation -Path "$env:APPDATA/Cursor/User/keybindings.json" | Out-Null
+New-Item -ItemType SymbolicLink -Target $settingsLocation -Path "$env:APPDATA/Cursor/User/settings.json" | Out-Null
