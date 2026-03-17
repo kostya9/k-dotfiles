@@ -1,5 +1,5 @@
 local function custom_on_attach(bufnr)
-	local api = require "nvim-tree.api"
+	local api = require("nvim-tree.api")
 
 	local function opts(desc)
 		return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
@@ -8,13 +8,17 @@ local function custom_on_attach(bufnr)
 	-- default mappings
 	api.config.mappings.default_on_attach(bufnr)
 
-	local preview = require('nvim-tree-preview')
+	local preview = require("nvim-tree-preview")
 
 	-- custom mappings
-	vim.keymap.set('n', 'gp', api.node.navigate.diagnostics.prev_recursive, opts('Prev diagnostic'))
-	vim.keymap.set('n', 'ge', api.node.navigate.diagnostics.next_recursive, opts('Next diagnostic'))
-	vim.keymap.set('n', 'K', preview.node_under_cursor, opts 'Preview (Watch)')
-	vim.keymap.set('n', '<Esc>', preview.unwatch, opts 'Close Preview/Unwatch')
+	vim.keymap.set("n", "gp", function()
+		api.node.navigate.diagnostics.prev_recursive({ severity = vim.diagnostic.severity.ERROR })
+	end, opts("Prev error"))
+	vim.keymap.set("n", "ge", function()
+		api.node.navigate.diagnostics.next_recursive({ severity = vim.diagnostic.severity.ERROR })
+	end, opts("Next error"))
+	vim.keymap.set("n", "K", preview.node_under_cursor, opts("Preview (Watch)"))
+	vim.keymap.set("n", "<Esc>", preview.unwatch, opts("Close Preview/Unwatch"))
 end
 
 return {
@@ -22,10 +26,10 @@ return {
 	lazy = false,
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
-		'b0o/nvim-tree-preview.lua'
+		"b0o/nvim-tree-preview.lua",
 	},
 	keys = {
-		{ "<leader>nt", ":NvimTreeToggle<CR>",   { noremap = true, silent = true } },
+		{ "<leader>nt", ":NvimTreeToggle<CR>", { noremap = true, silent = true } },
 		{ "<leader>nf", ":NvimTreeFindFile<CR>", { noremap = true, silent = true } },
 	},
 	opts = {
@@ -39,12 +43,18 @@ return {
 			enable = true,
 			update_root = {
 				enable = false,
-			}
+			},
+		},
+		git = {
+			enable = true,
+			ignore = false,
+			show_on_dirs = true,
+			timeout = 500,
 		},
 		actions = {
 			open_file = {
-				quit_on_open = true,
-			}
+				quit_on_open = false,
+			},
 		},
 		diagnostics = {
 			enable = true,

@@ -13,7 +13,7 @@ local function open_nvim_tree(data)
 
 	-- open the tree but dont focus it
 	require('nvim-tree.api').tree.toggle({ focus = false })
-	vim.api.nvim_exec_autocmds('BufWinEnter', {buffer = require('nvim-tree.view').get_bufnr()})
+	-- vim.api.nvim_exec_autocmds('BufWinEnter', {buffer = require('nvim-tree.view').get_bufnr()})
 end
 
 vim.api.nvim_create_autocmd({'VimEnter'}, { callback = open_nvim_tree })

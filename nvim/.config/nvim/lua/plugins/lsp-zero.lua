@@ -38,6 +38,7 @@ return {
 						name = "lazydev",
 						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
 					},
+				   -- { name = 'supermaven' },
 					{ name = 'nvim_lsp' },
 					{ name = 'buffer' },
 					{ name = 'path' },
@@ -52,13 +53,14 @@ return {
 					['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
 					['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
 					["<Tab>"] = cmp.mapping(function(fallback)
-						if require("copilot.suggestion").is_visible() then
-							require("copilot.suggestion").accept()
-						elseif cmp.visible() then
-							cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-						else
-							fallback()
-						end
+						fallback();
+						-- if require("copilot.suggestion").is_visible() then
+						-- 	require("copilot.suggestion").accept()
+						-- elseif cmp.visible() then
+					-- 		cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+					-- 	else
+					-- 		fallback()
+					-- 	end
 					end, {
 						"i",
 						"s",
@@ -86,8 +88,6 @@ return {
 					"lua_ls",
 					"stylua",
 					"pyright",
-					"ruff",
-					"rzls",
 					"roslyn",
 					"html-lsp"
 				},
@@ -114,7 +114,7 @@ return {
 				opts = {
 					registries = {
 						'github:mason-org/mason-registry',
-						'github:crashdummyy/mason-registry',
+						'github:Crashdummyy/mason-registry',
 					},
 				}
 			},

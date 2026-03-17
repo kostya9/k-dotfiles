@@ -13,16 +13,20 @@ return {
 	opts = {
 		-- add any opts here
 		provider = "claude",
-		claude = {
-			max_tokens = 32000,
-			thinking = {
-				type = "enabled",
-				budget_tokens = 4096,
+		providers = {
+			claude = {
+				extra_request_body = {
+					max_tokens = 32000,
+					thinking = {
+						type = "enabled",
+						budget_tokens = 4096,
+					},
+					temperature = 1,
+				}
 			},
-			temperature = 1,
-		},
-		gemini = {
-			model = 'gemini-2.0-flash'
+			gemini = {
+				model = 'gemini-2.5-flash'
+			}
 		},
 		windows = {
 			ask = {
@@ -41,6 +45,7 @@ return {
 			"zbirenbaum/copilot.lua",
 			cmd = "Copilot",
 			event = "InsertEnter",
+			enabled = false,
 			config = function()
 				require("copilot").setup({
 					offset_encoding = "utf-8",

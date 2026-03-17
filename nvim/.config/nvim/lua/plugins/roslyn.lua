@@ -1,156 +1,67 @@
-local capabilities = require('lspcapabilities')
 return {
 	{
-		'seblj/roslyn.nvim',
+		'seblyng/roslyn.nvim',
 		event = 'VeryLazy',
 		enabled = true,
-		dependencies = {
-			{
-				'tris203/rzls.nvim',
-				opts = {
-					on_attach = require 'lspattach',
-					capabilities = capabilities,
-				},
-			},
+		ft = { 'cs', 'razor', 'cshtml' },
+		---@module 'roslyn.config'
+		---@type RoslynNvimConfig
+		opts = {
+			-- Filewatching mode
+			-- "auto": default behavior
+			-- "roslyn": use roslyn's file watching
+			-- "off": disable file watching (use if you have performance issues)
+			filewatching = 'auto',
+
+			-- Whether to look for solution files in parent directories
+			broad_search = false,
+
+			-- Whether to lock the solution target after first attach
+			lock_target = false,
+
+			-- Silent mode for initialization notifications
+			silent = false,
 		},
-		config = function()
-			--- @param client vim.lsp.Client the LSP client
-			local function monkey_patch_semantic_tokens(client)
-				-- NOTE: Super hacky... Don't know if I like that we set a random variable on
-				-- the client Seems to work though ~seblj
-				if client.is_hacked then
-					return
-				end
-				client.is_hacked = true
-
-				-- let the runtime know the server can do semanticTokens/full now
-				client.server_capabilities =
-				    vim.tbl_deep_extend("force", client.server_capabilities, {
-					    semanticTokensProvider = {
-						    full = true,
-					    },
-				    })
-
-				-- monkey patch the request proxy
-				local request_inner = client.request
-				function client.request(method, params, handler, req_bufnr)
-					if method ~= vim.lsp.protocol.Methods.textDocument_semanticTokens_full then
-						return request_inner(method, params, handler)
-					end
-
-					local target_bufnr = vim.uri_to_bufnr(params.textDocument.uri)
-					local line_count = vim.api.nvim_buf_line_count(target_bufnr)
-					local last_line = vim.api.nvim_buf_get_lines(
-						target_bufnr,
-						line_count - 1,
-						line_count,
-						true
-					)[1]
-
-					local resp = request_inner("textDocument/semanticTokens/range", {
-						textDocument = params.textDocument,
-						range = {
-							["start"] = {
-								line = 0,
-								character = 0,
-							},
-							["end"] = {
-								line = line_count - 1,
-								character = string.len(last_line) - 1,
-							},
-						},
-					}, handler, req_bufnr)
-					return resp
-				end
-			end
-
-			local mason_registry = require "mason-registry"
-
-			--- @type string[]
-			local args = {
-				"--logLevel=Information",
-				"--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
-			}
-
-			local rzls_package = mason_registry.get_package "rzls"
-			if rzls_package:is_installed() then
-				local rzls_path = vim.fs.joinpath(rzls_package:get_install_path(), "libexec")
-				table.insert(
-					args,
-					"--razorSourceGenerator="
-					.. vim.fs.joinpath(rzls_path, "Microsoft.CodeAnalysis.Razor.Compiler.dll")
-				)
-				table.insert(
-					args,
-					"--razorDesignTimePath="
-					.. vim.fs.joinpath(
-						rzls_path,
-						"Targets",
-						"Microsoft.NET.Sdk.Razor.DesignTime.targets"
-					)
-				)
-				table.insert(args, "--stdio")
-			end
-
-			--- @type RoslynNvimConfig
-			local config = {
-				args = args,
-				config = {
-					filetypes = { 'razor', 'cs' },
-					handlers = require "rzls.roslyn_handlers",
-					on_attach = function(client, bufnr)
-						monkey_patch_semantic_tokens(client)
-						require "lspattach" (client, bufnr)
-						vim.notify("Razor LSP attached", "info")
-					end,
-
-					settings = {
-						['csharp|inlay_hints'] = {
-							csharp_enable_inlay_hints_for_implicit_object_creation = true,
-							csharp_enable_inlay_hints_for_implicit_variable_types = true,
-
-							csharp_enable_inlay_hints_for_lambda_parameter_types = true,
-							csharp_enable_inlay_hints_for_types = true,
-							dotnet_enable_inlay_hints_for_indexer_parameters = true,
-							dotnet_enable_inlay_hints_for_literal_parameters = true,
-							dotnet_enable_inlay_hints_for_object_creation_parameters = true,
-							dotnet_enable_inlay_hints_for_other_parameters = true,
-							dotnet_enable_inlay_hints_for_parameters = true,
-							dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
-							dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
-							dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
-						},
-						['csharp|code_lens'] = {
-							dotnet_enable_references_code_lens = true,
-						},
-						["csharp|background_analysis"] =
-						{
-							background_analysis =
-							{
-								dotnet_analyzer_diagnostics_scope =
-								"fullSolution",
-								dotnet_compiler_diagnostics_scope =
-								"fullSolution",
-							}
-						}
+		config = function(_, opts)
+			-- Configure LSP settings using vim.lsp.config API
+			vim.lsp.config("roslyn", {
+				on_attach = function(client, bufnr)
+					require "lspattach" (client, bufnr)
+					vim.notify("Roslyn LSP attached", "info")
+				end,
+				capabilities = require('lspcapabilities'),
+				settings = {
+					['csharp|inlay_hints'] = {
+						csharp_enable_inlay_hints_for_implicit_object_creation = true,
+						csharp_enable_inlay_hints_for_implicit_variable_types = true,
+						csharp_enable_inlay_hints_for_lambda_parameter_types = true,
+						csharp_enable_inlay_hints_for_types = true,
+						dotnet_enable_inlay_hints_for_indexer_parameters = true,
+						dotnet_enable_inlay_hints_for_literal_parameters = true,
+						dotnet_enable_inlay_hints_for_object_creation_parameters = true,
+						dotnet_enable_inlay_hints_for_other_parameters = true,
+						dotnet_enable_inlay_hints_for_parameters = true,
+						dotnet_suppress_inlay_hints_for_parameters_that_differ_only_by_suffix = true,
+						dotnet_suppress_inlay_hints_for_parameters_that_match_argument_name = true,
+						dotnet_suppress_inlay_hints_for_parameters_that_match_method_intent = true,
+					},
+					['csharp|code_lens'] = {
+						dotnet_enable_references_code_lens = true,
+					},
+					["csharp|background_analysis"] = {
+						dotnet_analyzer_diagnostics_scope = "fullSolution",
+						dotnet_compiler_diagnostics_scope = "fullSolution",
+					},
+					['csharp|completion'] = {
+						dotnet_show_completion_items_from_unimported_namespaces = true,
 					},
 				},
-				filewatching = 'auto',
-			}
+			})
 
-			local roslyn_package = mason_registry.get_package "roslyn"
-			if roslyn_package:is_installed() then
-				config.exe = {
-					"dotnet",
-					vim.fs.joinpath(
-						roslyn_package:get_install_path(),
-						"libexec",
-						"Microsoft.CodeAnalysis.LanguageServer.dll"
-					),
-				}
-			end
+			-- Setup roslyn with opts
+			require("roslyn").setup(opts)
 
-			require("roslyn").setup(config)
+			-- Auto-refresh code lens
 			vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "LspAttach" }, {
 				pattern = "*.cs",
 				callback = function()
