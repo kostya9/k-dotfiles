@@ -54,30 +54,19 @@ local lsp_attach = function(client, bufnr)
 	-- semantic_tokens(client)
 	local opts = { buffer = bufnr }
 
-	if client.name == 'omnisharp' then
-		-- vim.keymap.set('n', 'gd', '<cmd>lua require(\'omnisharp_extended\').lsp_definition()<cr>', opts)
-		-- vim.keymap.set('n', 'gi', '<cmd>lua require(\'omnisharp_extended\').lsp_implementation()<cr>', opts)
-		-- vim.keymap.set('n', 'gu', '<cmd>lua require(\'omnisharp_extended\').telescope_lsp_references({ include_declaration = false })<cr>', opts)
-	else
-		vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-		vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-	end
-
-	vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-	vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-	vim.keymap.set('n', 'ge', '<cmd>lua vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })<cr>', opts)
-	vim.keymap.set('n', 'gp', '<cmd>lua vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })<cr>', opts)
-	vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-	vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-	vim.keymap.set({ 'n', 'x' }, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>',
-		opts)
-	vim.keymap.set('n', '<leader>f', function()
-		vim.lsp.buf.format()
-	end, { silent = true, buffer = bufnr })
-	vim.keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-	vim.keymap.set('n', 'L', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
-	vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action,
-		{ buffer = bufnr, desc = "Code actions" })
+	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
+	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { buffer = bufnr, desc = "Go to implementation" })
+	vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover documentation" })
+	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration" })
+	vim.keymap.set('n', 'ge', function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end, { buffer = bufnr, desc = "Next error" })
+	vim.keymap.set('n', 'gp', function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end, { buffer = bufnr, desc = "Previous error" })
+	vim.keymap.set('n', 'go', vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Go to type definition" })
+	vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
+	vim.keymap.set({ 'n', 'x' }, '<F3>', function() vim.lsp.buf.format({ async = true }) end, { buffer = bufnr, desc = "Format document" })
+	vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { silent = true, buffer = bufnr, desc = "Format document" })
+	vim.keymap.set('n', '<leader>rr', vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename symbol" })
+	vim.keymap.set('n', 'L', vim.diagnostic.open_float, { buffer = bufnr, desc = "Show diagnostics" })
+	vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code actions" })
 end
 
 

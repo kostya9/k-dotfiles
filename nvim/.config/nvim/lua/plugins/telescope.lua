@@ -15,7 +15,7 @@ return {
 				"--column",
 				"--smart-case",
 				"--ignore-file",
-				"~/.config/nvim/.ignore",
+				vim.fn.stdpath("config") .. "/.ignore",
 			}
 		}
 	}

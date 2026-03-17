@@ -14,8 +14,8 @@ vim.keymap.set('v', '<leader>ps', function()
 	local end_pos = vim.fn.getpos(".")
 	local mode = vim.fn.mode()
 	local lines = vim.fn.getregion(start_pos, end_pos, { type = mode })
-	builtin.grep_string({ 
-		search = lines[0],
+	builtin.grep_string({
+		search = lines[1],
 		ignore_case = true
 	})
 end)

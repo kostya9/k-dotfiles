@@ -24,10 +24,6 @@ return {
 			-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 			{ '<F7>',       function() require('dapui').toggle() end,          desc = 'Debug: See last session result.' },
 
-			{ '<leader>db', function() require('dap').toggle_breakpoint() end, desc = 'DAP: Toggle breakpoint' },
-			{ '<leader>do', function() require('dap').step_over() end,         desc = 'DAP: Step over' },
-			{ '<leader>di', function() require('dap').step_into() end,         desc = 'DAP: Step into' },
-			{ '<leader>dc', function() require('dap').continue() end,          desc = 'DAP: Continue' },
 			{ '<leader>ds', function() require('dap').terminate() end,         desc = 'DAP: Stop' },
 			{ '<leader>dr', function() require('dap').run_to_cursor() end,     desc = 'DAP: Run to cursor' },
 			{
@@ -98,9 +94,14 @@ return {
 		dap.configurations.cs = config
 		dap.configurations.fsharp = config
 
+		local netcoredbg_cmd = mason_install_dir .. '/netcoredbg/netcoredbg/netcoredbg'
+		if vim.uv.os_uname().sysname == "Windows_NT" then
+			netcoredbg_cmd = netcoredbg_cmd .. '.exe'
+		end
+
 		dap.adapters.coreclr = {
 			type = 'executable',
-			command = mason_install_dir .. '/netcoredbg/netcoredbg/netcoredbg.exe',
+			command = netcoredbg_cmd,
 			args = { '--interpreter=vscode' }
 		}
 

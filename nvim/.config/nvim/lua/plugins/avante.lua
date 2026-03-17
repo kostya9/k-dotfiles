@@ -1,6 +1,6 @@
 local build_cmd = "make";
 
-if vim.loop.os_uname().sysname == "Windows_NT" then
+if vim.uv.os_uname().sysname == "Windows_NT" then
 	build_cmd = "pwsh -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false";
 end
 
@@ -19,7 +19,7 @@ return {
 					max_tokens = 32000,
 					thinking = {
 						type = "enabled",
-						budget_tokens = 4096,
+						budget_tokens = 10000,
 					},
 					temperature = 1,
 				}

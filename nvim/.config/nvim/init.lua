@@ -4,7 +4,7 @@ vim.loader.enable()
 vim.opt.wildignore:append(
 	"*/bin/*,*/obj/*,*/node_modules/*,*/dist/*,*/target/*,*/.git/*,*/.svn/*,*/.hg/*,*/.DS_Store/*,*/.vscode/*,*/.cache/*,*/.idea/*,*/.gradle/*,*/.settings/*,*/.classpath/*,*/.project/*,*/.factorypath/*,*/.metadata/*,*/.recommenders/*,*/.history/*,*/.log")
 
-vim.api.nvim_set_option("clipboard", "unnamed")
+vim.opt.clipboard = "unnamed"
 
 vim.opt.relativenumber = true
 vim.opt.nu = true
@@ -23,7 +23,7 @@ vim.opt.tabstop = 4
 
 vim.opt.splitright = true
 
-if vim.loop.os_uname().sysname == "Windows_NT" then
+if vim.uv.os_uname().sysname == "Windows_NT" then
 	vim.opt.shell = "pwsh"
 	vim.o.shellcmdflag =
 	"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
@@ -51,7 +51,9 @@ vim.g.nvim_tree_quit_on_open = 0 -- this doesn't play well with barbar
 vim.opt.laststatus = 3
 
 -- on windows, shada files are very annoying (always being locked)
-vim.opt.shadafile = "NONE"
+if vim.uv.os_uname().sysname == "Windows_NT" then
+	vim.opt.shadafile = "NONE"
+end
 
 -- This unsets the "last search pattern" register by hitting return
 vim.keymap.set({ "n", "v" }, "<CR>", ":nohlsearch<CR><CR>", { silent = true })
@@ -227,12 +229,10 @@ Please suggest a single commit messages, given the following diff:
 	}):find()
 end
 
--- set file type for Dockerfile-*
-vim.api.nvim_command("au BufNewFile,BufRead Dockerfile* set filetype=dockerfile")
-
--- TODO: change to "razor" when testing rzls
-vim.api.nvim_command("au BufNewFile,BufRead *.cshtml set filetype=razor")
-vim.api.nvim_command("au BufNewFile,BufRead *.razor set filetype=razor")
+vim.filetype.add({
+	pattern = { ["Dockerfile.*"] = "dockerfile" },
+	extension = { cshtml = "razor", razor = "razor" },
+})
 
 require("config.lazy")
 require("config.rose-pine")
@@ -242,7 +242,7 @@ require("config.nvim-tree")
 
 -- for some reason shellslash is being reset to true
 
-if vim.loop.os_uname().sysname == "Windows_NT" then
+if vim.uv.os_uname().sysname == "Windows_NT" then
 	vim.opt.shellslash = false
 	vim.defer_fn(function()
 		vim.opt.shellslash = false
