@@ -1,85 +1,145 @@
 " Fix annoying error bells
 set visualbell
-set noerrorbells 
+set noerrorbells
 
-set relativenumber = true
-set nu = true
+set relativenumber
+set number
 
-set scrolloff=8 " keep some lines before and after the cursor visible
-
-set signcolumn = yes
-set isfname+=@-@
-
-" integrate with system clipboard
+set scrolloff=8
+set signcolumn=yes
 set clipboard+=unnamed
 
-"This unsets the "last search pattern" register by hitting return
+" Highlights on search typing
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+set wrapscan
+set history=10000
+
+" This unsets the "last search pattern" register by hitting return
 nnoremap <silent> <CR> :nohlsearch<CR><CR>
 xnoremap <silent> <CR> :nohlsearch<CR><CR>
 
 let mapleader = " "
 
-" Highlights on search typing
-set incsearch
-" Highlights on search
-set hls
-" ignore case in search patterns
-set ignorecase                    
-" searches wrap around the end of the file
-set wrapscan
-" keep x lines of command line history
-set history=10000                 
+" --- Plugins ---
+set surround
+set ReplaceWithRegister
+set commentary
+set highlightedyank
+set NERDTree
 
-nnoremap <c-p> :action Find
+" --- File navigation (telescope equivalents) ---
+nmap <leader>pf :action SearchEverywhere<CR>
+nmap <C-p> :action GotoFile<CR>
+nmap <leader>ps :action FindInPath<CR>
+vmap <leader>ps :action FindInPath<CR>
+nmap <leader>pp :action GotoSymbol<CR>
+nmap <leader>pd :action ActivateProblemsViewToolWindow<CR>
+nmap <leader>vh :action GotoAction<CR>
 
-nnoremap gd :action GotoDeclaration<CR>
-nnoremap gi :action GotoImplementation<CR>
-nnoremap gu :action ShowUsages<CR>
-
-nnoremap gp :action GotoPreviousError<CR>
-nnoremap gn :action GotoNextError <CR>
-nnoremap ge :action ShowErrorDescription<CR>
-
-nnoremap <c-o> :action Back<cr>
-nnoremap <c-i> :action Forward<cr>
-nnoremap <K> :action QuickJavaDoc<cr>
-noremap <L> :action ShowErrorDescription<cr>
-
-
-nmap <leader>l :action NextTab<CR>
-nmap <leader>h :action PreviousTab<CR>
-
-nmap <C-p> :action ParameterInfo<CR>
+" --- LSP ---
+nmap gd :action GotoDeclaration<CR>
+nmap gi :action GotoImplementation<CR>
+nmap gD :action GotoSuperMethod<CR>
+nmap go :action GotoTypeDeclaration<CR>
+nmap gu :action ShowUsages<CR>
+nmap gs :action ParameterInfo<CR>
 imap <C-p> <C-o>:action ParameterInfo<CR>
-
+nmap K :action QuickJavaDoc<CR>
+nmap L :action ShowErrorDescription<CR>
 nmap <leader>rr :action RenameElement<CR>
+nmap <leader>ca :action ShowIntentionActions<CR>
+vmap <leader>ca :action ShowIntentionActions<CR>
+nmap <leader>f :action ReformatCode<CR>
+vmap <leader>f :action ReformatCode<CR>
+
+" --- Error navigation ---
+nmap <C-k> :action GotoNextError<CR>
+nmap <C-j> :action GotoPreviousError<CR>
+nmap ge :action GotoNextError<CR>
+nmap gp :action GotoPreviousError<CR>
+
+" --- Buffer/tab navigation (barbar equivalents) ---
+nmap <C-h> :action PreviousTab<CR>
+nmap <C-l> :action NextTab<CR>
+nmap <C-q> :action CloseEditor<CR>
+nmap <leader>q :action CloseAllEditorsButActive<CR>
+
+" --- Window/pane navigation (ctrl-w) ---
+nmap <C-w>h :action StretchSplitToLeft<CR>
+nmap <C-w>l :action StretchSplitToRight<CR>
+nmap <C-w>j :action StretchSplitToBottom<CR>
+nmap <C-w>k :action StretchSplitToTop<CR>
+nmap <C-w><C-h> :action FocusSplitLeft<CR>
+nmap <C-w><C-l> :action FocusSplitRight<CR>
+
+" --- File tree (nvim-tree equivalents) ---
+nmap <leader>nt :action ActivateProjectToolWindow<CR>
+nmap <leader>nf :action SelectInProjectView<CR>
+
+" --- Terminal ---
+nmap <leader>ot :action ActivateTerminalToolWindow<CR>
+
+" --- Git ---
+nmap <leader>gb :action Annotate<CR>
+nmap <leader>gd :action ActivateVersionControlToolWindow<CR>
+nmap <leader>lg :action ActivateVersionControlToolWindow<CR>
+
+" --- Debug (dap equivalents) ---
+nmap <F5> :action Resume<CR>
+nmap <F10> :action StepOver<CR>
+nmap <F11> :action StepInto<CR>
+nmap <F7> :action ActivateDebugToolWindow<CR>
+nmap <leader>b :action ToggleLineBreakpoint<CR>
+nmap <leader>B :action AddConditionalBreakpoint<CR>
+nmap <leader>ds :action Stop<CR>
+nmap <leader>dr :action RunToCursor<CR>
+
+" --- Testing (neotest equivalents) ---
+nmap <leader>tr :action RunClass<CR>
+nmap <leader>tt :action RunClass<CR>
+nmap <leader>tT :action RunAllTests<CR>
+nmap <leader>td :action DebugClass<CR>
+nmap <leader>tl :action Rerun<CR>
+
+" --- Refactoring extras ---
 vmap <leader>rem :action ExtractMethod<CR>
 nmap <leader>rem :action ExtractMethod<CR>
 nmap <leader>roi :action OptimizeImports<CR>
-nmap <leader>f :action ReformatCode<CR>
 nmap <leader>rm :action Move<CR>
-nmap <leader>pf :action SearchEverywhere<CR>
 
+" --- Move elements ---
 nmap > :action MoveElementRight<CR>
 nmap < :action MoveElementLeft<CR>
+
+" --- Move lines ---
+vmap J :m '>+1<CR>gv=gv
+vmap K :m '<-2<CR>gv=gv
 
 " don't lose selection when indenting
 vnoremap < <gv
 vnoremap > >gv
 vnoremap = =gv
 
-" // searches for current selected string
+" search for selected text
 vnoremap // y/<C-R>"<CR>N
 
-" Move lines around
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+" black hole register for c/C (match nvim)
+nnoremap c "_c
+vnoremap c "_c
+nnoremap C "_C
+vnoremap C "_C
 
 " do not overwrite copy register on paste
-set ReplaceWithRegister
 xmap p gr
 
+" scroll and center (match nvim)
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Disable Ex mode
+nnoremap Q <nop>

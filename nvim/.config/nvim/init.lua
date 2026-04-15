@@ -234,11 +234,15 @@ vim.filetype.add({
 	extension = { cshtml = "razor", razor = "razor" },
 })
 
-require("config.lazy")
-require("config.rose-pine")
-require("config.telescope")
-require("config.barbar")
-require("config.nvim-tree")
+if vim.g.vscode then
+	require("config.vscode")
+else
+	require("config.lazy")
+	require("config.rose-pine")
+	require("config.telescope")
+	require("config.barbar")
+	require("config.nvim-tree")
+end
 
 -- for some reason shellslash is being reset to true
 
